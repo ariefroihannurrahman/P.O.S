@@ -40,32 +40,42 @@ app.get('/',(req,res)=>{
 });
 
 
-app.post('/auth', function(request, response) {
+app.post('/auth', function(req,res) {
 
-	let kode = request.body.kode_kasir;
+	let kode = req.body.kode_kasir;
 
 	conn.query('SELECT * FROM kasir WHERE kode_kasir = ?', [kode], function(error, results, fields) {
 		if (error) throw error;
       if (results.length > 0) {
-          request.session.loggedin = true;
-          request.session.nama_kasir = results[0].nama_kasir;
-          response.redirect('/transaksi');
+          req.session.loggedin = true;
+          req.session.dataKasir = results[0];
+          // req.session.nama_kasir = results[0].nama_kasir;
+          res.redirect('/transaksi');
       } else {
-				response.send('Kode Salah!');
+				res.send('Kode Salah!');
 			}			
-			response.end();
+			res.end();
 		});
 });
 
 
-app.get('/transaksi', function(request, response) {
-	if (request.session.loggedin) {
-		response.send('Welcome back, ' + request.session.nama_kasir + '!');
+app.get('/transaksi', function(req,res) {
+	if (req.session.loggedin) {
+    res.render('transaksi/transaksi.ejs',{
+      dataKasir: req.session.dataKasir
+    });
+    // res.render('transaksi/transaksi.ejs');
 	} else {
-		response.send('Please login to view this page!');
+		res.redirect('/');
 	}
-	response.end();
 });
+
+app.get('/logout', function(req,res) {
+	req.session.loggedin = false;
+  req.session.nama_kasir = null;
+  res.redirect('/');
+});
+
 
 //HALAMAN KELOLA KASIR MANAGER
 

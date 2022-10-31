@@ -10,7 +10,10 @@
 </head>
 
 <body>
-    <h5><%= request.session.nama_kasir %></h5>
+    <h5><%= dataKasir.nama_kasir %></h5>
+    <form action="/logout" method="get">
+        <input type="submit" value="Logout">
+    </form>
 
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
