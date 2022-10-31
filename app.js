@@ -7,6 +7,8 @@ app.listen(3000, () => {
     console.log("Server running in port : 3000");
 });
 
+app.use(express.urlencoded({extended:false}));
+
 app.use(express.static('public'));
 
 var conn = mysql.createConnection({
@@ -58,6 +60,58 @@ app.post('/tambah', (req,res)=>{
     
 });
 
+app.get('/tes',(req, res) => {
+  let sql = "SELECT * FROM tes";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.render('tes_index.ejs',{
+      results: results
+    });
+  });
+});
+
+app.post('/save',(req, res) => {
+  // var data = {
+  //   nama: "adi", 
+  //   angka: "23"
+  // };
+  // var nama = req.body.nama;
+  // var angka = req.body.angka;
+
+  // var sql = "INSERT INTO tes (nama,angka) values  ('"+req.body.nama+"','"+req.body.angka+"')";
+  // var query = conn.query(sql, function (err, results) {
+  //   if(err) throw err;
+  //   res.redirect('/tes');
+  // });
+
+  let data = {
+    nama: req.body.nama, 
+    angka: req.body.angka
+  };
+  let sql = "INSERT INTO tes SET ?";
+  let query = conn.query(sql, data,(err, results) => {
+    if(err) throw err;
+    res.redirect('/tes');
+  });
+});
+ 
+//route for update data
+app.post('/update',(req, res) => {
+  let sql = "UPDATE tes SET nama='"+req.body.nama+"', angka='"+req.body.angka+"' WHERE id="+req.body.id;
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.redirect('/tes');
+  });
+});
+ 
+//route for delete data
+app.post('/delete',(req, res) => {
+  let sql = "DELETE FROM tes WHERE id="+req.body.product_id+"";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+      res.redirect('/tes');
+  });
+});
 
 // con.connect(function(err) {
 //     if (err) throw err;
