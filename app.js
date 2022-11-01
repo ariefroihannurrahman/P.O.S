@@ -26,28 +26,68 @@ app.get('/', (req,res) => {
   res.render('pages/login.ejs');
 });
 
-app.get('/home-manager', (req,res) => {
+app.get('/manager', (req,res) => {
   res.render('pages/manager/home-manager.ejs');
 });
 
 app.get('/laporan-awal', (req,res) => {
-  res.render('pages/laporan-awal.ejs');
+  res.render('pages/kasir/laporan-awal.ejs');
 });
 
 app.get('/laporan-akhir', (req,res) => {
-  res.render('pages/laporan-akhir.ejs');
+  res.render('pages/kasir/laporan-akhir.ejs');
 });
 
 app.get('/kasir', (req,res) => {
-  res.render('pages/home-kasir.ejs');
+  res.render('pages/kasir/home-kasir.ejs');
 });
 
 app.get('/cari-produk', (req,res) => {
   res.render('pages/cari-produk.ejs');
 });
 
-app.get('/laporan-pemilik', (req,res) => {
+app.get('/owner', (req,res) => {
   res.render('pages/owner/laporan-pemilik.ejs');
+});
+
+app.get('/penjualan', (req,res) => {
+  res.render('pages/manager/kelola-penjualan.ejs');
+});
+
+app.get('/produk', (req,res) => {
+  res.render('pages/manager/kelola-produk.ejs');
+});
+
+app.get('/karyawan', (req,res) => {
+  res.render('pages/manager/kelola-karyawan.ejs');
+});
+
+app.get('/kategori', (req,res) => {
+  res.render('pages/manager/kelola-kategori.ejs');
+});
+
+app.get('/tambah-jenis', (req,res) => {
+  res.render('pages/manager/tambah-jenis.ejs');
+});
+
+app.get('/edit-jenis', (req,res) => {
+  res.render('pages/manager/edit-jenis.ejs');
+});
+
+app.get('/tambah-kategori', (req,res) => {
+  res.render('pages/manager/tambah-kategori.ejs');
+});
+
+app.get('/edit-kategori', (req,res) => {
+  res.render('pages/manager/edit-kategori.ejs');
+});
+
+app.get('/tambah-produk', (req,res) => {
+  res.render('pages/manager/tambah-produk.ejs');
+});
+
+app.get('/jenis', (req,res) => {
+  res.render('pages/manager/kelola-jenis.ejs');
 });
 
 // //HALAMAN LOGIN KASIR

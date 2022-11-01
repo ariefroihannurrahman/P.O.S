@@ -24,7 +24,7 @@
     <!-- ======== sidebar-nav start =========== -->
     <aside class="sidebar-nav-wrapper">
       <div class="navbar-logo">
-        <a href="/owner">
+        <a href="/manager">
           <img class="w-100 h-100" src="/images/logo/f3.svg" alt="logo" />
         </a>
       </div>
@@ -50,7 +50,22 @@
             </a>
             <ul id="ddmenu_1" class="collapse show dropdown-nav">
               <li>
-                <a href="index.html" class="active"> Laporan Penjualan </a>
+                <a href="/manager" class="active"> Dasboard </a>
+              </li>
+              <li>
+                <a href="/penjualan" class="active"> Kelola Penjualan </a>
+              </li>
+              <li>
+                <a href="/produk" class="active"> Kelola Produk </a>
+              </li>
+              <li>
+                <a href="/kategori" class="active"> Kelola Kategori </a>
+              </li>
+              <li>
+                <a href="/jenis" class="active"> Kelola Jenis </a>
+              </li>
+              <li>
+                <a href="/karyawan" class="active"> Kelola Karyawan </a>
               </li>
             </ul>
           </li>
@@ -128,7 +143,7 @@
             <div class="row align-items-center">
               <div class="col-md-6">
                 <div class="title mb-30">
-                  <h2>Laporan Penjualan</h2>
+                  <h2>Kelola Karyawan</h2>
                 </div>
               </div>
               <!-- end col -->
@@ -140,7 +155,7 @@
                         <a href="#0">Dashboard</a>
                       </li>
                       <li class="breadcrumb-item active" aria-current="page">
-                        Laporan Penjualan
+                        Karyawan
                       </li>
                     </ol>
                   </nav>
@@ -157,21 +172,12 @@
               <div class="card-style mb-30">
                 <div class="title d-flex flex-wrap justify-content-between">
                   <div class="left">
-                    <h6 class="text-medium mb-10">Laporan Penjualan Pertahun</h6>
-                    <h3 class="text-bold">Rp.245.479</h3>
+                    <h3 class="text-medium mb-10 mt-2">Data Karyawan</h3>
                   </div>
                   <div class="right">
-                    <div class="select-style-1">
-                      <div class="select-position select-sm">
-                        <select class="light-bg">
-                          <option value="tahun">Tahunan</option>
-                          <option value="bulan">Bulanan</option>
-                          <option value="minggu">Mingguan</option>
-                          <option value="hari">Harian</option>
-                        </select>
+                      <div class="tambah-karyawan">
+                          <button type="submit" class="btn btn-primary">Tambah Karyawan</button>
                       </div>
-                    </div>
-                    <!-- end select -->
                   </div>
                 </div>
                 <!-- End Title -->
@@ -179,23 +185,28 @@
                     <thead>
                         <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Hari Penjualan</th>
-                            <th scope="col">Tanggal Penjualan</th>
-                            <th scope="col">Bulan Penjualan</th>
-                            <th scope="col">Tahun Penjualan</th>
-                            <th scope="col">Nama Karyawan</th>
-                            <th scope="col">Total Penjualan</th>
+                            <th scope="col">Nama Lengkap</th>
+                            <th scope="col">Nomor Telepon</th>
+                            <th scope="col">Jenis Kelamin</th>
+                            <th scope="col">Tanggal Rekrut</th>
+                            <th scope="col">Kode Kasir</th>
+                            <th scope="col">Alamat</th>
+                            <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>Senin</td>
-                            <td>01</td>
-                            <td>01</td>
-                            <td>2022</td>
                             <td>Arief</td>
-                            <td>Rp.3.000.000</td>
+                            <td>01082109</td>
+                            <td>Laki- Laki</td>
+                            <td>01/01/2022</td>
+                            <td>123456</td>
+                            <td>Jl.Cibru</td>
+                            <td>
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
