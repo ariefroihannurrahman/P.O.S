@@ -7,15 +7,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Jadwal</title>
     <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/mdicon.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
 </head>
-
 <body>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">Tambah Jadwal</button>
+    <table class="table table-striped" id="tabelJadwal">
+        <thead>
+            <tr>
+                <th>Nama Kasir</th>
+                <th>Nama Jadwal</th>
+                <th>Waktu Mulai</th>
+                <th>Waktu Selesai</th>
+                <th>Waktu Selesai</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% listJadwal.forEach((item)=>{ %>
+                <tr>
+                    <td><%= item.nama_kasir %></td>
+                    <td><%= item.hari %></td>
+                    <td><%= item.nama_shift %></td>
+                    <td><%= item.waktu_mulai %></td>
+                    <td><%= item.waktu_selesai %></td>
+                    <td>
+                        <a href="javascript:void(0);" class="btn btn-sm btn-info editJadwal" data-id="<%= item.id %>" data-nama-jadwal="<%= item.nama_jadwal %>" data-waktu-mulai="<%= item.waktu_mulai %> " data-waktu-selesai="<%= item.waktu_selesai %>">Edit</a>
+                        <a href="javascript:void(0);" class="btn btn-sm btn-danger deleteJadwal"data-id="<%= item.id %>">Delete</a>
+                    </td>
+                </tr>
+            <%}) %>
+        </tbody>
+    </table>
+
+    <form action="/add-jadwal" method="post">
+        <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Tambah Jadwal</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <select class="form-select" name="hari" aria-label="Default select example">
+                            <option>Pilih Hari</option>
+                            <option value="Senin">Senin</option>
+                            <option value="Selasa">Selasa</option>
+                            <option value="Rabu">Rabu</option>
+                            <option value="Kamis">Kamis</option>
+                            <option value="Jumat">Jumat</option>
+                            <option value="Sabtu">Sabtu</option>
+                            <option value="Minggu">Minggu</option>
+                        </select>
+
+                        <select class="form-select" name="hari" aria-label="Default select example">
+                            <option selected>Pilih Shift</option>
+                            <% listShift.forEach((item)=>{ %>
+                                <option value="<%= item.id%>"><%= item.nama_shift%> : <%= item.waktu_mulai%> - <%= item.waktu_selesai%></option>
+                            <%}) %>
+                        </select>
+
+                        <select class="form-select" name="kasir" aria-label="Default select example">
+                            <option selected>Pilih Kasir</option>
+                            <% listKasir.forEach((item)=>{ %>
+                                <option value="<%= item.id%>"><%= item.nama_kasir%></option>
+                            <%}) %>
+                        </select>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/edit-jadwal" method="post">
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Jadwal</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" name="nama_jadwal" class="form-control nama_jadwal" placeholder="Nama Jadwal" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input name="waktu_mulai" type='time' class="form-control waktu_mulai" />
+                        </div>
+
+                        <div class="form-group">
+                            <input name="waktu_selesai" type='time' class="form-control waktu-selesai" />
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" name="id" class="idjadwal">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/delete-jadwal" method="post">
+        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Hapus Jadwal</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <strong>Yakin Menghapus Data Ini?</strong>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" class="form-control idjadwal2" required>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script>
+        $(document).ready(function(){
 
+            $('#tabelJadwal').on('click','.editJadwal',function(){
+                var id = $(this).data('id');
+                var nama_jadwal = $(this).data('nama-jadwal');
+                var waktu_mulai = $(this).data('waktu-mulai');
+                var waktu_selesai = $(this).data('waktu-selesai');
+
+                console.log(nama_jadwal);
+                console.log(waktu_mulai);
+                console.log(waktu_selesai);
+                $('#modalEdit').modal('show');
+
+                mulai = waktu_mulai.toString();
+                console.log(mulai);
+                $('.idjadwal').val(id);
+                $('.nama_jadwal').val(nama_jadwal);
+                //BELUM SELESAI
+                $('.waktu_mulai').val(waktu_mulai);
+                $('.waktu_selesai').val(waktu_selesai);
+            });
+
+            $('#tabelJadwal').on('click','.deleteJadwal',function(){
+                var id = $(this).data('id');
+                $('#modalDelete').modal('show');
+                $('.idjadwal2').val(id);
+            });
+        });
     </script>
 </body>
 
