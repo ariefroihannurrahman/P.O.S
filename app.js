@@ -23,71 +23,100 @@ var conn = mysql.createConnection({
 //login
 
 app.get('/', (req,res) => {
-  res.render('pages/login.ejs');
-});
-
-app.get('/manager', (req,res) => {
-  res.render('pages/manager/home-manager.ejs');
-});
-
-app.get('/laporan-awal', (req,res) => {
-  res.render('pages/kasir/laporan-awal.ejs');
-});
-
-app.get('/laporan-akhir', (req,res) => {
-  res.render('pages/kasir/laporan-akhir.ejs');
-});
-
-app.get('/kasir', (req,res) => {
-  res.render('pages/kasir/home-kasir.ejs');
+  res.render('login.ejs');
 });
 
 app.get('/cari-produk', (req,res) => {
-  res.render('pages/cari-produk.ejs');
+  res.render('kasir/cari-produk.ejs');
+});
+
+app.get('/', (req,res) => {
+  res.render('login.ejs');
+});
+
+
+app.get('/manager', (req,res) => {
+  res.render('manager/home-manager.ejs');
+});
+
+app.get('/laporan-awal', (req,res) => {
+  res.render('kasir/laporan-awal.ejs');
+});
+
+app.get('/laporan-akhir', (req,res) => {
+  res.render('kasir/laporan-akhir.ejs');
+});
+
+app.get('/kasir', (req,res) => {
+  res.render('kasir/home-kasir.ejs');
+});
+
+app.get('/cari-produk', (req,res) => {
+  res.render('cari-produk.ejs');
 });
 
 app.get('/owner', (req,res) => {
-  res.render('pages/owner/laporan-pemilik.ejs');
+  res.render('owner/laporan-pemilik.ejs');
 });
 
 app.get('/penjualan', (req,res) => {
-  res.render('pages/manager/kelola-penjualan.ejs');
+  res.render('manager/kelola-penjualan.ejs');
 });
 
 app.get('/produk', (req,res) => {
-  res.render('pages/manager/kelola-produk.ejs');
+  res.render('manager/kelola-produk.ejs');
 });
 
 app.get('/karyawan', (req,res) => {
-  res.render('pages/manager/kelola-karyawan.ejs');
+  res.render('manager/kelola-karyawan.ejs');
 });
 
 app.get('/kategori', (req,res) => {
-  res.render('pages/manager/kelola-kategori.ejs');
+  res.render('manager/kelola-kategori.ejs');
 });
 
 app.get('/tambah-jenis', (req,res) => {
-  res.render('pages/manager/tambah-jenis.ejs');
+  res.render('manager/tambah/tambah-jenis.ejs');
 });
 
 app.get('/edit-jenis', (req,res) => {
-  res.render('pages/manager/edit-jenis.ejs');
-});
-
-app.get('/tambah-kategori', (req,res) => {
-  res.render('pages/manager/tambah-kategori.ejs');
+  res.render('manager/edit/edit-jenis.ejs');
 });
 
 app.get('/edit-kategori', (req,res) => {
-  res.render('pages/manager/edit-kategori.ejs');
+  res.render('manager/edit/edit-kategori.ejs');
+});
+
+app.get('/edit-karyawan', (req,res) => {
+  res.render('manager/edit/edit-karyawan.ejs');
+});
+
+app.get('/edit-produk', (req,res) => {
+  res.render('manager/edit/edit-produk.ejs');
+});
+
+app.get('/tambah-kategori', (req,res) => {
+  res.render('manager/tambah/tambah-kategori.ejs');
+});
+
+app.get('/edit-kategori', (req,res) => {
+  res.render('manager/edit/edit-kategori.ejs');
 });
 
 app.get('/tambah-produk', (req,res) => {
-  res.render('pages/manager/tambah-produk.ejs');
+  res.render('manager/tambah/tambah-produk.ejs');
+});
+
+app.get('/tambah-karyawan', (req,res) => {
+  res.render('manager/tambah/tambah-karyawan.ejs');
+});
+
+app.get('/tambah-penjualan', (req,res) => {
+  res.render('manager/tambah/tambah-penjualan.ejs');
 });
 
 app.get('/jenis', (req,res) => {
-  res.render('pages/manager/kelola-jenis.ejs');
+  res.render('manager/kelola-jenis.ejs');
 });
 
 // //HALAMAN LOGIN KASIR
