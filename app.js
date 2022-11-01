@@ -143,131 +143,131 @@ app.get('/laporan-pemilik', (req,res) => {
 //   });
 // });
 
-app.post('/delete-kasir',(req, res) => {
-  let sql = "DELETE FROM kasir WHERE id="+req.body.id+"";
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-      res.redirect('/manager/kasir');
-  });
-});
+// app.post('/delete-kasir',(req, res) => {
+//   let sql = "DELETE FROM kasir WHERE id="+req.body.id+"";
+//   let query = conn.query(sql, (err, results) => {
+//     if(err) throw err;
+//       res.redirect('/manager/kasir');
+//   });
+// });
 
-//HALAMAN KELOLA SHIFT
+// //HALAMAN KELOLA SHIFT
 
-app.get('/manager/shift',(req,res)=>{
-  let sql = "SELECT * FROM shift";
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-    res.render('manager/manager_shift.ejs',{
-      listShift: results
-    });
-  });
-});
+// app.get('/manager/shift',(req,res)=>{
+//   let sql = "SELECT * FROM shift";
+//   let query = conn.query(sql, (err, results) => {
+//     if(err) throw err;
+//     res.render('manager/manager_shift.ejs',{
+//       listShift: results
+//     });
+//   });
+// });
 
-app.post('/add-shift',(req, res) => {
-  let data = {
-    nama_shift: req.body.nama_shift, 
-    waktu_mulai: req.body.waktu_mulai,
-    waktu_selesai: req.body.waktu_selesai
-  };
-  let sql = "INSERT INTO shift SET ?";
-  let query = conn.query(sql, data,(err, results) => {
-    if(err) throw err;
-    res.redirect('/manager/shift');
-  });
-});
+// app.post('/add-shift',(req, res) => {
+//   let data = {
+//     nama_shift: req.body.nama_shift, 
+//     waktu_mulai: req.body.waktu_mulai,
+//     waktu_selesai: req.body.waktu_selesai
+//   };
+//   let sql = "INSERT INTO shift SET ?";
+//   let query = conn.query(sql, data,(err, results) => {
+//     if(err) throw err;
+//     res.redirect('/manager/shift');
+//   });
+// });
 
-app.post('/update-shift',(req, res) => {
-  let sql = "UPDATE shift SET nama_shift='"+req.body.nama_shift+"', waktu_mulai='"+req.body.waktu_mulai+"', waktu_selesai='"+req.body.waktu_selesai+"' WHERE id="+req.body.id;
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-    res.redirect('/manager/shift');
-  });
-});
+// app.post('/update-shift',(req, res) => {
+//   let sql = "UPDATE shift SET nama_shift='"+req.body.nama_shift+"', waktu_mulai='"+req.body.waktu_mulai+"', waktu_selesai='"+req.body.waktu_selesai+"' WHERE id="+req.body.id;
+//   let query = conn.query(sql, (err, results) => {
+//     if(err) throw err;
+//     res.redirect('/manager/shift');
+//   });
+// });
 
-app.post('/delete-shift',(req, res) => {
-  let sql = "DELETE FROM shift WHERE id="+req.body.id+"";
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-      res.redirect('/manager/shift');
-  });
-});
+// app.post('/delete-shift',(req, res) => {
+//   let sql = "DELETE FROM shift WHERE id="+req.body.id+"";
+//   let query = conn.query(sql, (err, results) => {
+//     if(err) throw err;
+//       res.redirect('/manager/shift');
+//   });
+// });
 
-//HALAMAN KELOLA JADWAL
+// //HALAMAN KELOLA JADWAL
 
-app.get('/manager/jadwal',(req,res)=>{
-  async.parallel([
-    function(callback){
-      let sql = "select jadwal.id, jadwal.hari, shift.nama_shift, shift.waktu_mulai, shift.waktu_selesai, kasir.nama_kasir FROM jadwal INNER JOIN shift on jadwal.id_shift = shift.id INNER JOIN kasir ON jadwal.id_kasir = kasir.id;";
-      let query = conn.query(sql, (err, results1) => {
-        if (err) {
-          return callback(err);
-        }
-        return callback(null, results1);
-      });
-    },function(callback){
-      let sql = "SELECT * FROM shift";
-      let query = conn.query(sql, (err, results2) => {
-        if (err) {
-          return callback(err);
-        }
-        return callback(null, results2);
-      });
-    },function(callback){
-      let sql = "SELECT * FROM kasir";
-      let query = conn.query(sql, (err, results3) => {
-        if (err) {
-          return callback(err);
-        }
-        return callback(null, results3);
-      });
-    }
-  ], function(error,callbackResults){
-    if(error){
-      console.log(error);
-    }else{
-      res.render('manager/manager_jadwal.ejs',{
-        listJadwal:callbackResults[0],
-        listShift:callbackResults[1],
-        listKasir: callbackResults[2]
-      });
-    }
-  });
+// app.get('/manager/jadwal',(req,res)=>{
+//   async.parallel([
+//     function(callback){
+//       let sql = "select jadwal.id, jadwal.hari, shift.nama_shift, shift.waktu_mulai, shift.waktu_selesai, kasir.nama_kasir FROM jadwal INNER JOIN shift on jadwal.id_shift = shift.id INNER JOIN kasir ON jadwal.id_kasir = kasir.id;";
+//       let query = conn.query(sql, (err, results1) => {
+//         if (err) {
+//           return callback(err);
+//         }
+//         return callback(null, results1);
+//       });
+//     },function(callback){
+//       let sql = "SELECT * FROM shift";
+//       let query = conn.query(sql, (err, results2) => {
+//         if (err) {
+//           return callback(err);
+//         }
+//         return callback(null, results2);
+//       });
+//     },function(callback){
+//       let sql = "SELECT * FROM kasir";
+//       let query = conn.query(sql, (err, results3) => {
+//         if (err) {
+//           return callback(err);
+//         }
+//         return callback(null, results3);
+//       });
+//     }
+//   ], function(error,callbackResults){
+//     if(error){
+//       console.log(error);
+//     }else{
+//       res.render('manager/manager_jadwal.ejs',{
+//         listJadwal:callbackResults[0],
+//         listShift:callbackResults[1],
+//         listKasir: callbackResults[2]
+//       });
+//     }
+//   });
   
-});
+// });
 
-app.get('/get-kasir',(req,res)=>{
-  let sql = "SELECT * FROM kasir";
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-    listJadwal: results
-  });
-});
+// app.get('/get-kasir',(req,res)=>{
+//   let sql = "SELECT * FROM kasir";
+//   let query = conn.query(sql, (err, results) => {
+//     if(err) throw err;
+//     listJadwal: results
+//   });
+// });
 
-app.post('/add-jadwal',(req, res) => {
-  let data = {
-    nama_shift: req.body.nama_shift, 
-    waktu_mulai: req.body.waktu_mulai,
-    waktu_selesai: req.body.waktu_selesai
-  };
-  let sql = "INSERT INTO jadwal SET ?";
-  let query = conn.query(sql, data,(err, results) => {
-    if(err) throw err;
-    res.redirect('/manager/jadwal');
-  });
-});
+// app.post('/add-jadwal',(req, res) => {
+//   let data = {
+//     nama_shift: req.body.nama_shift, 
+//     waktu_mulai: req.body.waktu_mulai,
+//     waktu_selesai: req.body.waktu_selesai
+//   };
+//   let sql = "INSERT INTO jadwal SET ?";
+//   let query = conn.query(sql, data,(err, results) => {
+//     if(err) throw err;
+//     res.redirect('/manager/jadwal');
+//   });
+// });
 
-app.post('/update-jadwal',(req, res) => {
-  let sql = "UPDATE jadwal SET nama_shift='"+req.body.nama_shift+"', waktu_mulai='"+req.body.waktu_mulai+"', waktu_selesai='"+req.body.waktu_selesai+"' WHERE id="+req.body.id;
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-    res.redirect('/manager/jadwal');
-  });
-});
+// app.post('/update-jadwal',(req, res) => {
+//   let sql = "UPDATE jadwal SET nama_shift='"+req.body.nama_shift+"', waktu_mulai='"+req.body.waktu_mulai+"', waktu_selesai='"+req.body.waktu_selesai+"' WHERE id="+req.body.id;
+//   let query = conn.query(sql, (err, results) => {
+//     if(err) throw err;
+//     res.redirect('/manager/jadwal');
+//   });
+// });
 
-app.post('/delete-jadwal',(req, res) => {
-  let sql = "DELETE FROM jadwal WHERE id="+req.body.id+"";
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-      res.redirect('/manager/jadwal');
-  });
-});
+// app.post('/delete-jadwal',(req, res) => {
+//   let sql = "DELETE FROM jadwal WHERE id="+req.body.id+"";
+//   let query = conn.query(sql, (err, results) => {
+//     if(err) throw err;
+//       res.redirect('/manager/jadwal');
+//   });
+// });
