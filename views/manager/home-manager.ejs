@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/css/fullcalendar.css" />
     <link rel="stylesheet" href="/css/fullcalendar.css" />
     <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <!-- ======== sidebar-nav start =========== -->
@@ -170,7 +171,7 @@
                 <div class="title d-flex flex-wrap justify-content-between">
                   <div class="left">
                     <h6 class="text-medium mb-10">Laporan Penjualan Pertahun</h6>
-                    <h3 class="text-bold">Rp.245.479</h3>
+                    <h3 class="text-bold">Rp.3.000.000</h3>
                   </div>
                   <div class="right">
                     <div class="select-style-1">
@@ -191,22 +192,20 @@
                   <thead>
                     <tr>
                       <th scope="col">No.</th>
-                      <th scope="col">Hari Penjualan</th>
-                      <th scope="col">Tanggal Penjualan</th>
-                      <th scope="col">Bulan Penjualan</th>
-                      <th scope="col">Tahun Penjualan</th>
+                      <th scope="col">Kode Penjualan</th>
                       <th scope="col">Nama Karyawan</th>
+                      <th scope="col">Tanggal Penjualan</th>
+                      <th scope="col">Deskripsi</th>
                       <th scope="col">Total Penjualan</th>
                     </tr>
                   </thead>
                     <tbody>
                       <tr>
                         <th scope="row">1</th>
-                        <td>Senin</td>
-                        <td>01</td>
-                        <td>01</td>
-                        <td>2022</td>
+                        <td>P01112022010001</td>
                         <td>Arief</td>
+                        <td>01/11/2022</td>
+                        <td>-</td>
                         <td>Rp.3.000.000</td>
                       </tr>
                     </tbody>
@@ -238,28 +237,36 @@
                 <!-- End Title -->
                 <table class="table text-center">
                   <thead>
-                    <tr>
-                      <th scope="col">No.</th>
-                      <th scope="col">Nama Lengkap</th>
-                      <th scope="col">Nomor Telepon</th>
-                      <th scope="col">Jenis Kelamin</th>
-                      <th scope="col">Tanggal Rekrut</th>
-                      <th scope="col">Kode Kasir</th>
-                      <th scope="col">Alamat</th>
-                    </tr>
+                      <tr>
+                          <th scope="col">No.</th>
+                          <th scope="col">Id</th>
+                          <th scope="col">Nama Lengkap</th>
+                          <th scope="col">Foto</th>
+                          <th scope="col">Nomor Telepon</th>
+                          <th scope="col">Jenis Kelamin</th>
+                          <th scope="col">Tanggal Rekrut</th>
+                          <th scope="col">Jabatan</th>
+                          <th scope="col">Kode Kasir</th>
+                          <th scope="col">Alamat</th>
+                      </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Arief</td>
-                      <td>01082109</td>
-                      <td>Laki- Laki</td>
-                      <td>01/01/2022</td>
-                      <td>123456</td>
-                      <td>Jl.Cibru</td>
-                    </tr>
+                      <tr>
+                          <th scope="row">1</th>
+                          <td>03001</td>
+                          <td>Arief</td>
+                          <td>
+                            <img class="product-img" src="images/profile/profile-1.jpg" alt="arief">
+                          </td>
+                          <td>01082109</td>
+                          <td>Laki- Laki</td>
+                          <td>01/01/2022</td>
+                          <td>Kasir</td>
+                          <td>123456</td>
+                          <td>Jl.Cibru</td>
+                      </tr>
                   </tbody>
-                </table>
+              </table>
                 <!-- End Chart -->
               </div>
             </div>
@@ -286,28 +293,30 @@
               <!-- End Title -->
               <table class="table text-center">
                 <thead>
-                  <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Gambar Produk</th>
-                    <th scope="col">Nama Produk</th>
-                    <th scope="col">Jenis Produk</th>
-                    <th scope="col">Kategori Produk</th>
-                    <th scope="col">Harga</th>
-                  </tr>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Kode Produk</th>
+                        <th scope="col">Gambar Produk</th>
+                        <th scope="col">Nama Produk</th>
+                        <th scope="col">Jenis Produk</th>
+                        <th scope="col">Kategori Produk</th>
+                        <th scope="col">Harga</th>
+                    </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>
-                        <img src="#" alt="#">
-                    </td>
-                    <td>Bakpao</td>
-                    <td>Makanan</td>
-                    <td>Internasional</td>
-                    <td>Rp.3.000</td>
-                  </tr>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>J01K1001</td>
+                        <td>
+                            <img class="product-img" src="images/products/Peuyeum.jpg" alt="Peuyeum">
+                        </td>
+                        <td>Peuyeum</td>
+                        <td>Makanan</td>
+                        <td>Lokal</td>
+                        <td>Rp.5.000</td>
+                    </tr>
                 </tbody>
-              </table>
+            </table>
             </div>
           </div>
         </div>
