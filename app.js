@@ -4,7 +4,6 @@ const mysql = require('mysql');
 const path = require('path');
 const session = require('express-session');
 const { request } = require('http');
-const e = require('express');
 
 app.listen(3000, () => {
     console.log("Server running in port : 3000");
@@ -116,5 +115,46 @@ app.post('/delete-kasir',(req, res) => {
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
       res.redirect('/manager/kasir');
+  });
+});
+
+//HALAMAN KELOLA SHIFT
+
+app.get('/manager/shift',(req,res)=>{
+  let sql = "SELECT * FROM shift";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.render('manager/manager_shift.ejs',{
+      listShift: results
+    });
+  });
+});
+
+app.post('/add-shift',(req, res) => {
+  let data = {
+    nama_shift: req.body.nama_shift, 
+    waktu_mulai: req.body.waktu_mulai,
+    waktu_selesai: req.body.waktu_selesai
+  };
+  let sql = "INSERT INTO shift SET ?";
+  let query = conn.query(sql, data,(err, results) => {
+    if(err) throw err;
+    res.redirect('/manager/shift');
+  });
+});
+
+app.post('/update-shift',(req, res) => {
+  let sql = "UPDATE shift SET nama_shift='"+req.body.nama_shift+"', waktu_mulai='"+req.body.waktu_mulai+"', waktu_selesai='"+req.body.waktu_selesai+"' WHERE id="+req.body.id;
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.redirect('/manager/shift');
+  });
+});
+
+app.post('/delete-shift',(req, res) => {
+  let sql = "DELETE FROM shift WHERE id="+req.body.id+"";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+      res.redirect('/manager/shift');
   });
 });
