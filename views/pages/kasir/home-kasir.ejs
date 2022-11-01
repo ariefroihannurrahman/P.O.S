@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>P.O.S</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-6 mt-5">
+          <form>
+            <div class="form-group">
+              <label for="formGroupExampleInput">Kode Barang</label>
+              <input type="text" class="form-control" id="formGroupExampleInput">
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">Nama Barang</label>
+              <input type="text" class="form-control" id="formGroupExampleInput2" disabled>
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput">Harga (Rp.)</label>
+              <input type="text" class="form-control" id="formGroupExampleInput" disabled>
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">Kuantitas</label>
+              <input type="text" class="form-control" id="formGroupExampleInput2"">
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput">Subtotal (Rp.)</label>
+              <input type="text" class="form-control" id="formGroupExampleInput" disabled>
+            </div>
+          </form>
+        </div>
+        <div class="col-6 mt-5">
+            <div class="form-group">
+              <label for="formGroupExampleInput">Total (Rp.)</label>
+              <input type="text" class="form-control" id="formGroupExampleInput" disabled>
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">Bayar</label>
+              <input type="text" class="form-control" id="formGroupExampleInput2">
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">Kembalian (Rp.)</label>
+              <input type="text" class="form-control" id="formGroupExampleInput2" disabled>
+            </div>
+            <div class="button-groups mt-5 text-center">
+              <button type="button" class="btn btn-primary">Cari Produk</button>
+              <button type="button" class="btn btn-primary">Tambah Produk</button>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mt-5 mb-5">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Kode Barang</th>
+                        <th scope="col">Nama Barang</th>
+                        <th scope="col">Harga</th>
+                        <th scope="col">Kuantitas</th>
+                        <th scope="col">Subtotal</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>BCD123</td>
+                        <td>Bakpao</td>
+                        <td>Rp.3000</td>
+                        <td>4</td>
+                        <td>Rp.12000</td>
+                        <td>
+                          <button type="button" class="btn btn-primary">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col mt-5">
+        <button type="button" class="btn btn-primary float-left">Logout</button>
+        <button type="button" class="btn btn-primary float-right">Selesai</button>
+      </div>
+    </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
