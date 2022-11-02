@@ -3,7 +3,7 @@ const app = express();
 const mysql = require('mysql');
 const path = require('path');
 const session = require('express-session');
-const { request } = require('http');
+const { request, get } = require('http');
 const { response } = require('express');
 const async = require('async');
 
@@ -380,12 +380,6 @@ app.get('/delete-jenis/:no_jenis', (req,res)=>{
     res.redirect('/jenis');
   });
 });
-
-
-
-
-
-
 
 
 
