@@ -191,24 +191,26 @@
                 <table class="table text-center">
                   <thead>
                     <tr>
-                      <th scope="col">No.</th>
-                      <th scope="col">Kode Penjualan</th>
-                      <th scope="col">Nama Karyawan</th>
-                      <th scope="col">Tanggal Penjualan</th>
-                      <th scope="col">Deskripsi</th>
-                      <th scope="col">Total Penjualan</th>
+                        <th scope="col">No.</th>
+                        <th scope="col">Kode Penjualan</th>
+                        <th scope="col">Nama Karyawan</th>
+                        <th scope="col">Tanggal Penjualan</th>
+                        <th scope="col">Total Penjualan</th>
+                        <!-- <th scope="col">Deskripsi</th> -->
                     </tr>
-                  </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>P01112022010001</td>
-                        <td>Arief</td>
-                        <td>01/11/2022</td>
-                        <td>-</td>
+                </thead>
+                <tbody>
+                  <% listPenjualan.forEach((item)=>{ %>
+                    <tr>
+                        <th scope="row"><%= item.no_penjualan %></th>
+                        <td><%= item.kd_penjualan %></td>
+                        <td><%= item.nama_karyawan %></td>
+                        <td><%= item.tanggal_penjualan %></td>
                         <td>Rp.3.000.000</td>
-                      </tr>
-                    </tbody>
+                        <!-- <td><%= item.deskripsi %></td> -->
+                    </tr>
+                  <%}) %>
+                </tbody>
                 </table>
                 <!-- End Chart -->
               </div>
@@ -237,35 +239,33 @@
                 <!-- End Title -->
                 <table class="table text-center">
                   <thead>
-                      <tr>
-                          <th scope="col">No.</th>
-                          <th scope="col">Id</th>
-                          <th scope="col">Nama Lengkap</th>
-                          <th scope="col">Foto</th>
-                          <th scope="col">Nomor Telepon</th>
-                          <th scope="col">Jenis Kelamin</th>
-                          <th scope="col">Tanggal Rekrut</th>
-                          <th scope="col">Jabatan</th>
-                          <th scope="col">Kode Kasir</th>
-                          <th scope="col">Alamat</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <th scope="row">1</th>
-                          <td>03001</td>
-                          <td>Arief</td>
-                          <td>
-                            <img class="product-img" src="images/profile/profile-1.jpg" alt="arief">
-                          </td>
-                          <td>01082109</td>
-                          <td>Laki- Laki</td>
-                          <td>01/01/2022</td>
-                          <td>Kasir</td>
-                          <td>123456</td>
-                          <td>Jl.Cibru</td>
-                      </tr>
-                  </tbody>
+                    <tr>
+                        <!-- <th scope="col">No.</th> -->
+                        <th scope="col">Nama Lengkap</th>
+                        <!-- <th scope="col">Foto</th> -->
+                        <th scope="col">Nomor Telepon</th>
+                        <th scope="col">Jenis Kelamin</th>
+                        <th scope="col">Tanggal Rekrut</th>
+                        <th scope="col">Jabatan</th>
+                        <th scope="col">Kode Kasir</th>
+                        <th scope="col">Alamat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <% listKaryawan.forEach((item)=>{ %>
+                    <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td><%= item.nama_karyawan %></td>
+                        <!-- <td><img class="product-img" src="images/profile/profile-1.jpg" alt="arief"></td> -->
+                        <td><%= item.nomor_handphone %></td>
+                        <td><%= item.jenis_kelamin %></td>
+                        <td><%= item.tanggal_rekrut %></td>
+                        <td><%= item.jabatan %></td>
+                        <td><%= item.kode %></td>
+                        <td><%= item.alamat %></td>
+                    </tr>
+                  <%}) %>
+                </tbody>
               </table>
                 <!-- End Chart -->
               </div>
@@ -293,29 +293,34 @@
               <!-- End Title -->
               <table class="table text-center">
                 <thead>
-                    <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">Kode Produk</th>
-                        <th scope="col">Gambar Produk</th>
-                        <th scope="col">Nama Produk</th>
-                        <th scope="col">Jenis Produk</th>
-                        <th scope="col">Kategori Produk</th>
-                        <th scope="col">Harga</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>J01K1001</td>
-                        <td>
-                            <img class="product-img" src="images/products/Peuyeum.jpg" alt="Peuyeum">
-                        </td>
-                        <td>Peuyeum</td>
-                        <td>Makanan</td>
-                        <td>Lokal</td>
-                        <td>Rp.5.000</td>
-                    </tr>
-                </tbody>
+                  <tr>
+                      <th scope="col">No.</th>
+                      <th scope="col">Kode Produk</th>
+                      <!-- <th scope="col">Gambar Produk</th> -->
+                      <th scope="col">Nama Produk</th>
+                      <th scope="col">Jenis Produk</th>
+                      <th scope="col">Kategori Produk</th>
+                      <th scope="col">Harga</th>
+                      <th scope="col">Aksi</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <% listProduk.forEach((item)=>{ %>
+                  <tr>
+                      <th scope="row"><%= item.no_produk %></th>
+                      <td><%= item.kd_produk %></td>
+                      <!-- <td><img class="product-img" src="images/products/Peuyeum.jpg" alt="Peuyeum"></td> -->
+                      <td><%= item.nama_produk %></td>
+                      <td><%= item.nama_jenis %></td>
+                      <td><%= item.nama_kategori %></td>
+                      <td><%= item.harga %></td>
+                      <td>
+                          <a href="/edit-produk" class="btn btn-primary">Edit</a>
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                      </td>
+                  </tr>
+                  <%}) %>
+              </tbody>
             </table>
             </div>
           </div>
@@ -341,18 +346,20 @@
               </div>
               <!-- End Title -->
               <table class="table text-center">
-                  <thead>
-                      <tr>
-                          <th scope="col">No.</th>
-                          <th scope="col">Nama Kategori</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <th scope="row">1</th>
-                          <td>Lokal</td>
-                      </tr>
-                  </tbody>
+                <thead>
+                  <tr>
+                      <th scope="col">No.</th>
+                      <th scope="col">Nama Kategori</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <% listKategori.forEach((item)=>{ %>
+                  <tr>
+                      <th scope="row"><%= item.no_kategori %></th>
+                      <td><%= item.nama_kategori %></td>
+                  </tr>
+                  <%}) %>
+              </tbody>
               </table>
               <!-- End Chart -->
             </div>
@@ -377,17 +384,20 @@
                 
                 <!-- End Title -->
                 <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Nama Jenis</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Makanan</td>
-                        </tr>
-                    </tbody>
+                  <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Nama Jenis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <% listJenis.forEach((item)=>{ %>
+                    <tr>
+                        <th scope="row"><%= item.no_jenis %></th>
+                        <th><%= item.nama_jenis %></th>
+                    </tr>
+                    <%}) %>
+                </tbody>
                 </table>
                 <!-- End Chart -->
               </div>

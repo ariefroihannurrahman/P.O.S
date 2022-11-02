@@ -27,14 +27,16 @@ app.use(session({
   secret: 'secret',
   resave: true,
   saveUninitialized: true,
-  loggedin: false
+  loggedin: false,
+  laporan_awal:null
 }));
 
-// let date_time = new Date();
-// let date1 = ("0" + date_time.getDate()).slice(-2);
-// let month1 = ("0" + (date_time.getMonth() + 1)).slice(-2);
-// let year1 = date_time.getFullYear();
-// let tanggal = year1 + "-" + month1 + "-" + date1;
+let date_time = new Date();
+let date1 = ("0" + date_time.getDate()).slice(-2);
+let month1 = ("0" + (date_time.getMonth() + 1)).slice(-2);
+let year1 = date_time.getFullYear();
+let tanggal = year1 + "-" + month1 + "-" + date1;
+let tanggal2 =year1+month1+date1;
 
 
 app.get('/',(req,res)=>{
@@ -74,6 +76,7 @@ app.post('/add-laporan-awal',(req, res) => {
     tanggal_laporan : tanggal,
     laporan_awal : req.body.laporan_awal
   };
+  session.laporan_awal = req.body.laporan_awal;
   let sql = "INSERT INTO laporan_kasir SET ?";
   let query = conn.query(sql, data,(err, results) => {
     if(err) throw err;
@@ -82,7 +85,22 @@ app.post('/add-laporan-awal',(req, res) => {
 });
 
 app.get('/laporan-akhir', (req,res) => {
-  res.render('kasir/laporan-akhir.ejs');
+  console.log(session.laporan_awal);
+  res.render('kasir/laporan-akhir.ejs',{
+    lap_awal: session.laporan_awal,
+  });
+});
+
+
+app.post('/add-laporan-akhir',(req, res) => {
+  let sql = "UPDATE laporan_kasir SET laporan_akhir ='"+req.body.laporan_akhir+"' WHERE no_karyawan="+req.session.dataKasir.no_karyawan+";"
+  
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    req.session.loggedin = false;
+    req.session.dataKasir = null;
+    res.redirect('/');
+  });
 });
 
 
@@ -92,8 +110,6 @@ app.get('/cari-produk', (req,res) => {
   res.render('kasir/cari-produk.ejs');
 });
 
-
-
 app.get('/kasir', (req,res) => {
   res.render('kasir/home-kasir.ejs');
 });
@@ -102,39 +118,11 @@ app.get('/cari-produk', (req,res) => {
   res.render('cari-produk.ejs');
 });
 
+//====================
 app.get('/owner', (req,res) => {
   res.render('owner/laporan-pemilik.ejs');
 });
-
-
-
-
-
-app.get('/edit-jenis', (req,res) => {
-  res.render('manager/edit/edit-jenis.ejs');
-});
-
-app.get('/edit-kategori', (req,res) => {
-  res.render('manager/edit/edit-kategori.ejs');
-});
-
-app.get('/edit-produk', (req,res) => {
-  res.render('manager/edit/edit-produk.ejs');
-});
-
-app.get('/tambah-kategori', (req,res) => {
-  res.render('manager/tambah/tambah-kategori.ejs');
-});
-
-app.get('/edit-kategori', (req,res) => {
-  res.render('manager/edit/edit-kategori.ejs');
-});
-
-app.get('/tambah-penjualan', (req,res) => {
-  res.render('manager/tambah/tambah-penjualan.ejs');
-});
-
-
+//====================
 
 
 // //HALAMAN LOGIN KASIR
@@ -156,44 +144,66 @@ app.get('/tambah-penjualan', (req,res) => {
 // });
 
 //HALAMAN HOME MANAGER
+app.get('/manager',(req,res)=>{
+    async.parallel([
+      function(callback){
+        let sql = "select penjualan.no_penjualan, penjualan.kd_penjualan, karyawan.nama_karyawan, penjualan.tanggal_penjualan, penjualan.deskripsi from penjualan INNER JOIN karyawan ON penjualan.no_karyawan = karyawan.no_karyawan;";
+        let query = conn.query(sql, (err, results1) => {
+          if (err) {
+            return callback(err);
+          }
+          return callback(null, results1);
+        });
+      },function(callback){
+        let sql = "SELECT * FROM karyawan";
+        let query = conn.query(sql, (err, results2) => {
+          if (err) {
+            return callback(err);
+          }
+          return callback(null, results2);
+        });
+      },function(callback){
+        let sql = "SELECT produk.no_produk, produk.kd_produk, produk.nama_produk, produk.harga, jenis.nama_jenis, kategori.nama_kategori FROM produk INNER JOIN jenis ON produk.no_jenis = jenis.no_jenis INNER JOIN kategori ON produk.no_kategori = kategori.no_kategori";
+        let query = conn.query(sql, (err, results3) => {
+          if (err) {
+            return callback(err);
+          }
+          return callback(null, results3);
+        });
+      },function(callback){
+        let sql = "SELECT * FROM kategori";
+        let query = conn.query(sql, (err, results4) => {
+          if (err) {
+            return callback(err);
+          }
+          return callback(null, results4);
+        });
+      },function(callback){
+        let sql = "SELECT * FROM jenis";
+        let query = conn.query(sql, (err, results5) => {
+          if (err) {
+            return callback(err);
+          }
+          return callback(null, results5);
+        });
+      }
+    ], function(error,callbackResults){
+      if(error){
+        console.log(error);
+      }else{
+        res.render('manager/home-manager.ejs',{
+          listPenjualan:callbackResults[0],
+          listKaryawan:callbackResults[1],
+          listProduk: callbackResults[2],
+          listKategori: callbackResults[3],
+          listJenis: callbackResults[4]
+        });
+      }
+    });
+  });
 
-app.get('/manager/',(req,res)=>{
-  async.parallel([
-    function(callback){
-      let sql = "select jadwal.id, jadwal.hari, shift.nama_shift, shift.waktu_mulai, shift.waktu_selesai, kasir.nama_kasir FROM jadwal INNER JOIN shift on jadwal.id_shift = shift.id INNER JOIN kasir ON jadwal.id_kasir = kasir.id;";
-      let query = conn.query(sql, (err, results1) => {
-        if (err) {
-          return callback(err);
-        }
-        return callback(null, results1);
-      });
-    },function(callback){
-      let sql = "SELECT * FROM shift";
-      let query = conn.query(sql, (err, results2) => {
-        if (err) {
-          return callback(err);
-        }
-        return callback(null, results2);
-      });
-    },function(callback){
-      let sql = "SELECT * FROM kasir";
-      let query = conn.query(sql, (err, results3) => {
-        if (err) {
-          return callback(err);
-        }
-        return callback(null, results3);
-      });
-    }
-  ], function(error,callbackResults){
-    if(error){
-      console.log(error);
-    }else{
-      res.render('manager/home-manager.ejs',{
-        listJadwal:callbackResults[0],
-        listShift:callbackResults[1],
-        listKasir: callbackResults[2]
-      });
-    }
+  app.get('/manager', (req,res) => {
+    res.render('manager/home-manager.ejs');
   });
 
 // HALAMAN KELOLA  MANAGER
@@ -228,6 +238,10 @@ app.get('/tambah-produk', (req,res) => {
   res.render('manager/tambah/tambah-produk.ejs');
 });
 
+app.get('/edit-produk', (req,res) => {
+  res.render('manager/edit/edit-produk.ejs');
+});
+
 
 //HALAMAN KELOLA PENJUALAN
 
@@ -241,6 +255,11 @@ app.get('/penjualan', (req,res) => {
   });
 });
 
+app.get('/tambah-penjualan', (req,res) => {
+  res.render('manager/tambah/tambah-penjualan.ejs');
+});
+
+
 //HALAMAN KELOLA KATEGORI
 app.get('/kategori', (req,res) => {
   let sql = "SELECT * FROM kategori";
@@ -250,6 +269,18 @@ app.get('/kategori', (req,res) => {
       listKategori: results,
     });
   });
+});
+
+app.get('/edit-kategori', (req,res) => {
+  res.render('manager/edit/edit-kategori.ejs');
+});
+
+app.get('/tambah-kategori', (req,res) => {
+  res.render('manager/tambah/tambah-kategori.ejs');
+});
+
+app.get('/edit-kategori', (req,res) => {
+  res.render('manager/edit/edit-kategori.ejs');
 });
 
 
@@ -268,6 +299,10 @@ app.get('/tambah-jenis', (req,res) => {
   res.render('manager/tambah/tambah-jenis.ejs');
 });
 
+app.get('/edit-jenis', (req,res) => {
+  res.render('manager/edit/edit-jenis.ejs');
+});
+
 app.post('/add-jenis', (req,res)=>{
   let data = req.body.nama_jenis;
   let sql = 'INSERT INTO jenis SET ?';
@@ -284,6 +319,13 @@ app.post('/delete-jenis', (req,res)=>{
     res.redirect('/jenis');
   });
 });
+
+
+
+
+
+
+
 
 
 // app.post('/add-karyawan',(req, res) => {
