@@ -80,6 +80,7 @@ app.post('/add-laporan-awal',(req, res) => {
   let sql = "INSERT INTO laporan_kasir SET ?";
   let query = conn.query(sql, data,(err, results) => {
     if(err) throw err;
+    // res.redirect('/kasir');
     res.redirect('/kasir');
   });
 });
@@ -280,15 +281,6 @@ app.get('/tambah-jenis', (req,res) => {
   res.render('manager/tambah/tambah-jenis.ejs');
 });
 
-app.post('/add-jenis', (req,res)=>{
-  let data = req.body.nama_jenis;
-  let sql = 'INSERT INTO jenis SET ?';
-  let query = conn.query(sql,data,(err, results) => {
-    if(err) throw err;
-    res.redirect('/jenis');
-  });
-});
-
 app.get('/edit-jenis/:no_jenis', (req,res) => {
   let id = req.params.no_jenis;
   let sql = "SELECT * FROM jenis WHERE no_jenis="+id+"";
@@ -297,6 +289,16 @@ app.get('/edit-jenis/:no_jenis', (req,res) => {
     res.render('manager/edit/edit-jenis.ejs',{
       dataJenis: results[0],
     });
+  });
+});
+
+app.post('/update-jenis/', (req,res)=>{
+  let id = req.body.no_jenis;
+  let data = req.body.nama_jenis;
+  let sql = "UPDATE jenis SET nama_jenis = '"+data+"' WHERE no_jenis= "+id+";"
+  let query = conn.query(sql,data,(err, results) => {
+    if(err) throw err;
+    res.redirect('/jenis');
   });
 });
 

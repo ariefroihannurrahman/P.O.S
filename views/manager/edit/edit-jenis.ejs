@@ -173,13 +173,14 @@
           <div class="row">
             <div class="col">
               <div class="card-style">
-                <form>
+                <form action="/update-jenis/" method="post">
                     <div class="form-group">
                         <label for="nama-jenis-baru">Masukkan Nama Jenis Baru : </label>
                         <input type="text" class="form-control" name="nama_jenis" id="nama-jenis-baru" value="<%= dataJenis.nama_jenis %>" placeholder="Masukkan Nama Jenis Baru">
                       </div>
                     <a href="/jenis" class="btn btn-primary">Kembali</a>
                     <button type="submit" class="btn btn-primary">Edit</button>
+                    <input type="text" name="no_jenis" value="<%= dataJenis.no_jenis %>" hidden>
                   </form>
               </div>
             </div>
