@@ -12,17 +12,17 @@
   </head>
   <body>
     <div class="container">
-        <form>
+        <form action="/add-laporan-awal" method="post">
             <div class="row">
             <!-- Token input -->
                 <div class="col-4 offset-4 mt-150px">
                     <div class="form-outline mb-4">
                         <label class="form-label" for="laporan-awal">Laporan Laci</label>
-                        <input type="text" id="laporan-awal" class="form-control" />
+                        <input type="text" name="laporan_awal" id="laporan-awal" class="form-control" />
                     </div>
           
             <!-- Submit button -->
-                <button type="button" class="btn btn-primary btn-block mb-4">Submit</button>
+            <input type="submit" value="Submit" class="btn btn-primary btn-block mb-4">
             </div>
         </form>
     </div>

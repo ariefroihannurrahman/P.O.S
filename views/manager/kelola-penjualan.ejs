@@ -197,22 +197,24 @@
                             <th scope="col">Nama Karyawan</th>
                             <th scope="col">Tanggal Penjualan</th>
                             <th scope="col">Total Penjualan</th>
-                            <th scope="col">Deskripsi</th>
+                            <!-- <th scope="col">Deskripsi</th> -->
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
+                      <% listPenjualan.forEach((item)=>{ %>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>P01112022010001</td>
-                            <td>Arief</td>
-                            <td>01/11/2022</td>
+                            <th scope="row"><%= item.no_penjualan %></th>
+                            <td><%= item.kd_penjualan %></td>
+                            <td><%= item.nama_karyawan %></td>
+                            <td><%= item.tanggal_penjualan %></td>
                             <td>Rp.3.000.000</td>
-                            <td>-</td>
+                            <!-- <td><%= item.deskripsi %></td> -->
                             <td>
                                 <button type="submit" class="btn btn-primary">Edit</button>
                             </td>
                         </tr>
+                      <%}) %>
                     </tbody>
                 </table>
                 <!-- End Chart -->

@@ -187,7 +187,7 @@
                         <tr>
                             <th scope="col">No.</th>
                             <th scope="col">Kode Produk</th>
-                            <th scope="col">Gambar Produk</th>
+                            <!-- <th scope="col">Gambar Produk</th> -->
                             <th scope="col">Nama Produk</th>
                             <th scope="col">Jenis Produk</th>
                             <th scope="col">Kategori Produk</th>
@@ -196,21 +196,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                      <% listProduk.forEach((item)=>{ %>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>J01K1001</td>
-                            <td>
-                                <img class="product-img" src="images/products/Peuyeum.jpg" alt="Peuyeum">
-                            </td>
-                            <td>Peuyeum</td>
-                            <td>Makanan</td>
-                            <td>Lokal</td>
-                            <td>Rp.5.000</td>
+                            <th scope="row"><%= item.no_produk %></th>
+                            <td><%= item.kd_produk %></td>
+                            <!-- <td><img class="product-img" src="images/products/Peuyeum.jpg" alt="Peuyeum"></td> -->
+                            <td><%= item.nama_produk %></td>
+                            <td><%= item.nama_jenis %></td>
+                            <td><%= item.nama_kategori %></td>
+                            <td><%= item.harga %></td>
                             <td>
                                 <a href="/edit-produk" class="btn btn-primary">Edit</a>
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
+                        <%}) %>
                     </tbody>
                 </table>
                 <!-- End Chart -->

@@ -12,17 +12,17 @@
   </head>
   <body>
     <div class="container">
-        <form>
+        <form action="/auth" method="post">
             <div class="row">
             <!-- Token input -->
                 <div class="col-4 offset-4 mt-150px">
                     <div class="form-outline mb-4">
                         <label class="form-label" for="form2Example2">Masukkan Token</label>
-                        <input type="password" id="form2Example2" class="form-control" />
+                        <input type="password" name="kode_kasir" id="form2Example2" class="form-control" />
                     </div>
                     
             <!-- Submit button -->
-                <button type="button" class="btn btn-primary btn-block mb-4">Masuk</button>
+                <input type="submit" value="Login" class="btn btn-primary btn-block mb-4">
             </div>
         </form>
     </div>

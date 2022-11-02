@@ -190,14 +190,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                      <% listJenis.forEach((item)=>{ %>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Makanan</td>
+                            <th scope="row"><%= item.no_jenis %></th>
+                            <td><%= item.nama_jenis %></td>
                             <td>
                                 <a href="/edit-jenis" class="btn btn-primary">Edit</a>
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
+                        <%}) %>
                     </tbody>
                 </table>
                 <!-- End Chart -->

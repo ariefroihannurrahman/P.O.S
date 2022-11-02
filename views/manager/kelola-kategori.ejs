@@ -190,14 +190,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                      <% listKategori.forEach((item)=>{ %>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Lokal</td>
+                            <th scope="row"><%= item.no_kategori %></th>
+                            <td><%= item.nama_kategori %></td>
                             <td>
                                 <a href="/edit-kategori" class="btn btn-primary">Edit</a>
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
+                        <%}) %>
                     </tbody>
                 </table>
                 <!-- End Chart -->
