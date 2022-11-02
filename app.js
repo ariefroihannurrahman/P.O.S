@@ -247,10 +247,51 @@ app.get('/tambah-produk', (req,res) => {
   });
 });
 
+app.post('/add-produk',(req, res) => {
+  let data = {
+    kd_produk : req.body.kode_produk,
+    nama_produk : req.body.nama_produk,
+    no_jenis : req.body.pilih_jenis,
+    no_kategori : req.body.pilih_kategori,
+    harga : req.body.harga_produk
+  };
+  session.laporan_awal = req.body.laporan_awal;
+  let sql = "INSERT INTO produk SET ?";
+  let query = conn.query(sql, data,(err, results) => {
+    if(err) throw err;
+    // res.redirect('/kasir');
+    res.redirect('/produk');
+  });
+});
 
+app.get('/edit-produk/:no_produk', (req,res) => {
+  let id = req.params.no_produk;
+  let sql = "SELECT * FROM produk WHERE no_produk="+id+"";
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    res.render('manager/edit/edit-produk.ejs',{
+      dataProduk: results[0],
+    });
+  });
+});
 
-app.get('/edit-produk', (req,res) => {
-  res.render('manager/edit/edit-produk.ejs');
+app.post('/update-produk/', (req,res)=>{
+  let id = req.body.no_jenis;
+  let data = req.body.nama_jenis;
+  let sql = "UPDATE jenis SET nama_jenis = '"+data+"' WHERE no_jenis= "+id+";"
+  let query = conn.query(sql,data,(err, results) => {
+    if(err) throw err;
+    res.redirect('/produk');
+  });
+});
+
+app.get('/delete-produk/:no_produk', (req,res)=>{
+  let id = req.params.no_produk;
+  let sql = "DELETE FROM jenis WHERE no_produk="+id+"";
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    res.redirect('/produk');
+  });
 });
 
 
@@ -328,17 +369,6 @@ app.post('/update-jenis/', (req,res)=>{
   let query = conn.query(sql,data,(err, results) => {
     if(err) throw err;
     res.redirect('/jenis');
-  });
-});
-
-app.post('/edit-jenis/:no_jenis', (req,res) => {
-  let id = req.params.no_jenis;
-  let sql = "SELECT * FROM jenis WHERE no_jenis="+id+"";
-  let query = conn.query(sql,(err, results) => {
-    if(err) throw err;
-    res.render('manager/edit/edit-jenis.ejs',{
-      dataJenis: results[0],
-    });
   });
 });
 

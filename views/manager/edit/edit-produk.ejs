@@ -173,36 +173,42 @@
           <div class="row">
             <div class="col">
               <div class="card-style">
-                <form>
+                <form action="/update-produk/" method="post">
+                  <div class="form-group">
+                    <label for="nama-produk">Masukkan Kode Produk : </label>
+                    <input type="text" name="kode_produk" class="form-control" id="nama-produk" placeholder="Masukkan Nama Produk">
+                  </div>
                     <div class="form-group">
                       <label for="nama-produk">Masukkan Nama Produk : </label>
-                      <input type="text" class="form-control" id="nama-produk" placeholder="Masukkan Nama Produk">
+                      <input type="text" name="nama_produk" class="form-control" id="nama-produk" placeholder="Masukkan Nama Produk">
                     </div>
-                    <div class="form-group col-4 p-0">
+                    <!-- <div class="form-group">
                         <label for="input-gambar">Masukkan Gambar : </label>
                         <input type="file" class="form-control-file" id="input-gambar">
-                      </div>
+                      </div> -->
                       <div class="form-row">
                         <div class="form-group col-6">
                             <label for="pilih-jenis">Pilih Jenis : </label>
-                            <select id="pilih-jenis" class="form-control">
+                            <select id="pilih-jenis" name="pilih_jenis" class="form-control">
                             <option selected>Pilih</option>
-                            <option value="makanan">Makanan</option>
-                            <option value="minuman">Minuman</option>
+                            <% listJenis.forEach((item)=>{ %>
+                            <option value="<%= item.no_jenis %>"><%= item.nama_jenis %></option>
+                            <%}) %>
                             </select>
                         </div>
                         <div class="form-group col-6">
                             <label for="pilih-kategori">Pilih Kategori : </label>
-                            <select id="pilih-kategori" class="form-control">
+                            <select id="pilih-kategori" name="pilih_kategori" class="form-control">
                             <option selected>Pilih</option>
-                            <option value="lokal">Lokal</option>
-                            <option value="Internasional">Internasional</option>
+                            <% listKategori.forEach((item)=>{ %>
+                            <option value="<%= item.no_kategori %>"><%= item.nama_kategori %></option>
+                            <%}) %>
                             </select>
                         </div>
                         </div>
                         <div class="form-group">
                             <label for="nama-produk">Masukkan Nama Produk : </label>
-                            <input type="text" class="form-control" id="nama-produk" placeholder="Masukkan Nama Produk">
+                            <input type="text" class="form-control" name="harga_produk" id="nama-produk" placeholder="Masukkan Harga Produk">
                           </div>
 
                     <a href="/produk" class="btn btn-primary">Kembali</a>

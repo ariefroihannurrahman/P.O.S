@@ -206,8 +206,8 @@
                             <td><%= item.nama_kategori %></td>
                             <td><%= item.harga %></td>
                             <td>
-                                <a href="/edit-produk" class="btn btn-primary">Edit</a>
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                              <a href="/edit-produk/<%=item.no_produk%>" class="btn btn-primary">Edit</a>
+                              <a href="/delete-produk/<%=item.no_produk%>" type="submit" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                         <%}) %>
