@@ -85,7 +85,6 @@ app.post('/add-laporan-awal',(req, res) => {
 });
 
 app.get('/laporan-akhir', (req,res) => {
-  console.log(session.laporan_awal);
   res.render('kasir/laporan-akhir.ejs',{
     lap_awal: session.laporan_awal,
   });
@@ -124,24 +123,6 @@ app.get('/owner', (req,res) => {
 });
 //====================
 
-
-// //HALAMAN LOGIN KASIR
-// app.get('/transaksi', function(req,res) {
-// 	if (req.session.loggedin) {
-//     res.render('transaksi/transaksi.ejs',{
-//       dataKasir: req.session.dataKasir
-//     });
-//     // res.render('transaksi/transaksi.ejs');
-// 	} else {
-// 		res.redirect('/');
-// 	}
-// });
-
-// app.get('/logout', function(req,res) {
-// 	req.session.loggedin = false;
-//   req.session.nama_kasir = null;
-//   res.redirect('/');
-// });
 
 //HALAMAN HOME MANAGER
 app.get('/manager',(req,res)=>{
@@ -299,10 +280,6 @@ app.get('/tambah-jenis', (req,res) => {
   res.render('manager/tambah/tambah-jenis.ejs');
 });
 
-app.get('/edit-jenis', (req,res) => {
-  res.render('manager/edit/edit-jenis.ejs');
-});
-
 app.post('/add-jenis', (req,res)=>{
   let data = req.body.nama_jenis;
   let sql = 'INSERT INTO jenis SET ?';
@@ -312,13 +289,40 @@ app.post('/add-jenis', (req,res)=>{
   });
 });
 
-app.post('/delete-jenis', (req,res)=>{
-  let sql = "DELETE FROM jenis WHERE no_jenis="+req.body.no_jenis+"";
-  let query = conn.query(sql,data,(err, results) => {
+app.get('/edit-jenis/:no_jenis', (req,res) => {
+  let id = req.params.no_jenis;
+  let sql = "SELECT * FROM jenis WHERE no_jenis="+id+"";
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    res.render('manager/edit/edit-jenis.ejs',{
+      dataJenis: results[0],
+    });
+  });
+});
+
+app.post('/edit-jenis/:no_jenis', (req,res) => {
+  let id = req.params.no_jenis;
+  let sql = "SELECT * FROM jenis WHERE no_jenis="+id+"";
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    res.render('manager/edit/edit-jenis.ejs',{
+      dataJenis: results[0],
+    });
+  });
+});
+
+app.get('/delete-jenis/:no_jenis', (req,res)=>{
+  let id = req.params.no_jenis;
+  let sql = "DELETE FROM jenis WHERE no_jenis="+id+"";
+  let query = conn.query(sql,(err, results) => {
     if(err) throw err;
     res.redirect('/jenis');
   });
 });
+
+
+
+
 
 
 

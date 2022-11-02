@@ -195,8 +195,8 @@
                             <th scope="row"><%= item.no_jenis %></th>
                             <td><%= item.nama_jenis %></td>
                             <td>
-                                <a href="/edit-jenis" class="btn btn-primary">Edit</a>
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <a href="/edit-jenis/<%=item.no_jenis%>" class="btn btn-primary">Edit</a>
+                                <a href="/delete-jenis/<%=item.no_jenis%>" type="submit" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                         <%}) %>
