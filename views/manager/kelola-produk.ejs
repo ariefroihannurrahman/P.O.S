@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/images/favicon.svg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="css/style.css">
+    <title>P.O.S</title>
+
+    <!-- ========== All CSS files linkup ========= -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/lineicons.css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <!-- ======== sidebar-nav start =========== -->
+    <aside class="sidebar-nav-wrapper">
+      <div class="navbar-logo">
+        <a href="/manager">
+          <img class="w-100 h-100" src="/images/logo/f3.svg" alt="logo" />
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="nav-item nav-item-has-children">
+            <a
+              href="#0"
+              data-bs-toggle="collapse"
+              data-bs-target="#ddmenu_1"
+              aria-controls="ddmenu_1"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="icon">
+                <svg width="22" height="22" viewBox="0 0 22 22">
+                  <path
+                    d="M17.4167 4.58333V6.41667H13.75V4.58333H17.4167ZM8.25 4.58333V10.0833H4.58333V4.58333H8.25ZM17.4167 11.9167V17.4167H13.75V11.9167H17.4167ZM8.25 15.5833V17.4167H4.58333V15.5833H8.25ZM19.25 2.75H11.9167V8.25H19.25V2.75ZM10.0833 2.75H2.75V11.9167H10.0833V2.75ZM19.25 10.0833H11.9167V19.25H19.25V10.0833ZM10.0833 13.75H2.75V19.25H10.0833V13.75Z"
+                  />
+                </svg>
+              </span>
+              <span class="text">Dashboard</span>
+            </a>
+            <ul id="ddmenu_1" class="collapse show dropdown-nav">
+              <li>
+                <a href="/manager"> Dasboard </a>
+              </li>
+              <li>
+                <a href="/penjualan"> Kelola Penjualan </a>
+              </li>
+              <li>
+                <a href="/produk" class="active"> Kelola Produk </a>
+              </li>
+              <li>
+                <a href="/kategori"> Kelola Kategori </a>
+              </li>
+              <li>
+                <a href="/jenis"> Kelola Jenis </a>
+              </li>
+              <li>
+                <a href="/karyawan"> Kelola Karyawan </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="overlay"></div>
+    <!-- ======== sidebar-nav end =========== -->
+
+    <!-- ======== main-wrapper start =========== -->
+    <main class="main-wrapper">
+      <!-- ========== header start ========== -->
+      <header class="header">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col-6">
+              <div class="header-left d-flex align-items-center">
+                <div class="menu-toggle-btn mr-20">
+                  <button
+                    id="menu-toggle"
+                    class="main-btn btn-hover bg-white"
+                  >
+                    <i class="lni lni-chevron-left me-2"></i> Menu
+                  </button>
+                </div>
+                <div class="header-search d-none d-md-flex">
+                  <form action="/laporan-pemilik">
+                    <input type="text" placeholder="Cari" />
+                    <button type="submit"><i class="lni lni-search-alt"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-4 offset-3">
+              <div class="header-right">
+                <!-- profile start -->
+                <div class="profile-box ml-15">
+                  <button
+                    class="dropdown-toggle bg-transparent border-0"
+                    type="button"
+                    id="profile"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <div class="profile-info">
+                      <div class="info">
+                        <h6>Arief Roihan Nur Rahman</h6>
+                        <img class="w-25 h-25 ml-2 rounded" src="/images/profile/profile-1.jpg" alt="Foto Profile" />
+                      </div>
+                    </div>
+                    <i class="lni lni-chevron-down"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="profile"
+                  >
+                    <li>
+                      <a href="/"> <i class="lni lni-exit"></i> Keluar </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- profile end -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- ========== header end ========== -->
+
+      <!-- ========== section start ========== -->
+      <section class="section">
+        <div class="container-fluid">
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>Kelola Produk</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              <div class="col-md-6">
+                <div class="breadcrumb-wrapper mb-30">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="#0">Dashboard</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">
+                        Produk
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- ========== title-wrapper end ========== -->
+          <!-- End Row -->
+          <div class="row">
+            <div class="col">
+              <div class="card-style mb-30">
+                <div class="title d-flex flex-wrap justify-content-between">
+                  <div class="left">
+                    <h3 class="text-medium mb-10 mt-2">Data Produk</h3>
+                  </div>
+                  <div class="right">
+                      <div class="tambah-produk">
+                          <a type="submit" href="/tambah-produk" class="btn btn-primary text-white">Tambah Produk</a>
+                      </div>
+                  </div>
+                </div>
+                <!-- End Title -->
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Kode Produk</th>
+                            <th scope="col">Gambar Produk</th>
+                            <th scope="col">Nama Produk</th>
+                            <th scope="col">Jenis Produk</th>
+                            <th scope="col">Kategori Produk</th>
+                            <th scope="col">Harga</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>J01K1001</td>
+                            <td>
+                                <img class="product-img" src="images/products/Peuyeum.jpg" alt="Peuyeum">
+                            </td>
+                            <td>Peuyeum</td>
+                            <td>Makanan</td>
+                            <td>Lokal</td>
+                            <td>Rp.5.000</td>
+                            <td>
+                                <a href="/edit-produk" class="btn btn-primary">Edit</a>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- End Chart -->
+              </div>
+            </div>
+            <!-- End Col -->
+                  <!-- End Table -->
+                </div>
+              </div>
+            </div>
+            <!-- End Col -->
+          </div>
+          <!-- End Row -->
+        </div>
+        <!-- end container -->
+      </section>
+      <!-- ========== section end ========== -->
+
+      <!-- ========== footer start =========== -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 order-last order-md-first">
+              <div class="copyright text-center text-md-start">
+                <p class="text-sm">
+                  Kelompok 2 Pengembangan Aplikasi Web
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- end row -->
+        </div>
+        <!-- end container -->
+      </footer>
+      <!-- ========== footer end =========== -->
+    </main>
+    <!-- ======== main-wrapper end =========== -->
+
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/dynamic-pie-chart.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+    <script src="/js/jvectormap.min.js"></script>
+    <script src="/js/world-merc.js"></script>
+    <script src="/js/polyfill.js"></script>
+    <script src="/js/main.js"></script>
+    </script>
+  </body>
+</html>
