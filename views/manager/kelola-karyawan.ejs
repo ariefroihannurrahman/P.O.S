@@ -185,9 +185,9 @@
                 <table class="table text-center">
                     <thead>
                         <tr>
-                            <!-- <th scope="col">No.</th> -->
+                            <th scope="col">No.</th>
+                            <th scope="col">Foto</th>
                             <th scope="col">Nama Lengkap</th>
-                            <!-- <th scope="col">Foto</th> -->
                             <th scope="col">Nomor Telepon</th>
                             <th scope="col">Jenis Kelamin</th>
                             <th scope="col">Tanggal Rekrut</th>
@@ -200,7 +200,8 @@
                     <tbody>
                       <% listKasir.forEach((item)=>{ %>
                         <tr>
-                            <!-- <th scope="row">1</th> -->
+                            <th scope="row"><%= item.no_karyawan %></th>
+                            <td><img class="product-img" src="images/profile/<%= item.gambar_karyawan %>" alt="Foto <%= item.nama_karyawan %>"></td>
                             <td><%= item.nama_karyawan %></td>
                             <!-- <td><img class="product-img" src="images/profile/profile-1.jpg" alt="arief"></td> -->
                             <td><%= item.nomor_handphone %></td>
@@ -211,7 +212,7 @@
                             <td><%= item.alamat %></td>
                             <td>
                                 <a href="/edit-karyawan" class="btn btn-primary">Edit</a>
-                                <button type="submit" id="deleteKasir" class="btn btn-danger" data-id="<%= item.id %>">Delete</button>
+                                <a href="/delete-karyawan/<%= item.id %>" id="deleteKasir" class="btn btn-danger" data-id="<%= item.id %>">Delete</a>
                             </td>
                         </tr>
                       <%}) %>
