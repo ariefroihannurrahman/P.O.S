@@ -217,8 +217,37 @@ app.get('/produk', (req,res) => {
 });
 
 app.get('/tambah-produk', (req,res) => {
-  res.render('manager/tambah/tambah-produk.ejs');
+  async.parallel([
+    function(callback){
+      let sql = "select * from jenis";
+      let query = conn.query(sql, (err, results1) => {
+        if (err) {
+          return callback(err);
+        }
+        return callback(null, results1);
+      });
+    },function(callback){
+      let sql = "SELECT * FROM kategori";
+      let query = conn.query(sql, (err, results2) => {
+        if (err) {
+          return callback(err);
+        }
+        return callback(null, results2);
+      });
+    }
+  ], function(error,callbackResults){
+    if(error){
+      console.log(error);
+    }else{
+      res.render('manager/tambah/tambah-produk.ejs',{
+        listJenis:callbackResults[0],
+        listKategori:callbackResults[1]
+      });
+    }
+  });
 });
+
+
 
 app.get('/edit-produk', (req,res) => {
   res.render('manager/edit/edit-produk.ejs');
