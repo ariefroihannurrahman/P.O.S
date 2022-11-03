@@ -91,12 +91,6 @@
                     <i class="lni lni-chevron-left me-2"></i> Menu
                   </button>
                 </div>
-                <div class="header-search d-none d-md-flex">
-                  <form action="/laporan-pemilik">
-                    <input type="text" placeholder="Cari" />
-                    <button type="submit"><i class="lni lni-search-alt"></i></button>
-                  </form>
-                </div>
               </div>
             </div>
             <div class="col-4 offset-3">
@@ -173,16 +167,13 @@
           <div class="row">
             <div class="col">
               <div class="card-style">
-                <form>
-                    <div class="form-group">
-                      <label for="kategori-lama">Masukkan Nama kategori Lama : </label>
-                      <input type="text" class="form-control" id="nama-kategori" placeholder="Masukkan Nama kategori Lama">
-                    </div>
+                <form action="/update-kategori/" method="post">
                     <div class="form-group">
                         <label for="kategori-baru">Masukkan Nama kategori Baru : </label>
-                        <input type="text" class="form-control" id="kategori-baru" placeholder="Masukkan Nama kategori Baru">
+                        <input type="text" class="form-control" name="nama_kategori" id="kategori-baru" value="<%= dataKategori.nama_kategori %>" placeholder="Masukkan Nama kategori Baru">
                       </div>
                     <a href="/kategori" class="btn btn-primary">Kembali</a>
+                    <input type="text" name="no_kategori" value="<%= dataKategori.no_kategori %>" hidden>
                     <button type="submit" class="btn btn-primary">Edit</button>
                   </form>
               </div>

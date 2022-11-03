@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
+    <%= console.log(dataKaryawan) %> 
+
     <!-- ======== sidebar-nav start =========== -->
     <aside class="sidebar-nav-wrapper">
       <div class="navbar-logo">
@@ -90,12 +92,6 @@
                   >
                     <i class="lni lni-chevron-left me-2"></i> Menu
                   </button>
-                </div>
-                <div class="header-search d-none d-md-flex">
-                  <form action="/laporan-pemilik">
-                    <input type="text" placeholder="Cari" />
-                    <button type="submit"><i class="lni lni-search-alt"></i></button>
-                  </form>
                 </div>
               </div>
             </div>
@@ -173,40 +169,56 @@
           <div class="row">
             <div class="col">
               <div class="card-style">
-                <form>
-                    <div class="form-group">
+                <form action="/update-karyawan/" method="post">
+                    <div class="form-group mb-3>
                       <label for="nama-karyawan">Masukkan Nama Karyawan : </label>
-                      <input type="text" class="form-control" id="nama-karyawan" placeholder="Masukkan Nama Karyawan">
+                      <input type="text" class="form-control" value="<%= dataKaryawan.nama_karyawan %>" name="nama_karyawan" id="nama-karyawan" placeholder="Masukkan Nama Karyawan">
+                    </div>
+                    <div class="form-group">
+                      <label for="gambar">Masukkan Foto Karyawan</label>
+                      <input type="file" class="form-control-file" value="<%= dataKaryawan.gambar_karyawan %> " id="gambar">
                     </div>
                     <div class="form-group">
                         <label for="nomor-handphone">Masukkan Nomor Handphone : </label>
-                        <input type="text" class="form-control" id="nomor-handphone" placeholder="Masukkan Nomor Handphone">
+                        <input type="text" class="form-control" value="<%= dataKaryawan.nomor_handphone %>" name="nomor_handphone" id="nomor-handphone" placeholder="Masukkan Nomor Handphone">
                       </div>
                       <div class="form-group">
                         <label for="tanggal-rekrut">Masukkan Tanggal Rekrut : </label>
-                        <input type="text" class="form-control" id="tanggal-rekrut" placeholder="Masukkan Tanggal Rekrut">
+                        <input type="text" class="form-control" value="<%= dataKaryawan.tanggal_rekrut.toLocaleString().split(",")[0] %>" name="tanggal_rekrut" id="tanggal-rekrut" placeholder="Masukkan Tanggal Rekrut">
                       </div>
                       <div class="form-group">
                         <label for="kode">Masukkan Kode : </label>
-                        <input type="text" class="form-control" id="kode" disabled>
+                        <input type="text" value="<%= dataKaryawan.kode %>" class="form-control" name="kode" id="kode" disabled>
                       </div>
                       <div class="radio-button-group">
                         <p>Jenis Kelamin : </p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input mt-1" type="radio" name="inlineRadioOptions" id="pria" value="option1">
+                        <% if(dataKaryawan.jenis_kelamin == "pria" ) {%>
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="pria" value="pria" checked="checked">
+                              <label class="form-check-label" for="pria">Laki - Laki</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="perempuan" value="">
+                                <label class="form-check-label" for="perempuan">Perempuan</label>
+                            </div>
+                        <%} else {%> 
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="pria" value="pria">
                             <label class="form-check-label" for="pria">Laki - Laki</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input mt-1" type="radio" name="inlineRadioOptions" id="perempuan" value="option2">
-                            <label class="form-check-label" for="perempuan">Perempuan</label>
-                        </div>
+                          </div>
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="perempuan" checked="checked">
+                              <label class="form-check-label" for="perempuan">Perempuan</label>
+                          </div>
+                        <% } %> 
                         </div>
                         <div class="form-group mt-2">
                             <label for="alamat">Masukkan Alamat</label>
-                            <textarea class="form-control" id="alamat" rows="3"></textarea>
+                            <textarea class="form-control" name="alamat" id="alamat" rows="3"><%= dataKaryawan.alamat %></textarea>
                           </div>
 
                     <a href="/karyawan" class="btn btn-primary">Kembali</a>
+                    <input type="text" name="no_kategori" value="<%= dataKaryawan.no_karyawan %>" hidden>
                     <button type="submit" class="btn btn-primary">Edit</button>
                   </form>
               </div>
@@ -254,5 +266,6 @@
     <script src="/js/world-merc.js"></script>
     <script src="/js/polyfill.js"></script>
     <script src="/js/main.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>

@@ -188,7 +188,7 @@ app.get('/manager',(req,res)=>{
     res.render('manager/home-manager.ejs');
   });
 
-// HALAMAN KELOLA  MANAGER
+// HALAMAN KELOLA KARYAWAN
 
 app.get('/karyawan', (req,res) => {
   let sql = "SELECT * FROM karyawan";
@@ -202,6 +202,36 @@ app.get('/karyawan', (req,res) => {
 
 app.get('/tambah-karyawan', (req,res) => {
   res.render('manager/tambah/tambah-karyawan.ejs');
+});
+
+app.get('/edit-karyawan/:no_karyawan', (req,res) => {
+  let id = req.params.no_karyawan;
+  let sql = "SELECT * FROM karyawan WHERE no_karyawan="+id+"";
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    res.render('manager/edit/edit-karyawan.ejs',{
+      dataKaryawan: results[0],
+    });
+  });
+});
+
+app.post('/update-karyawan/', (req,res)=>{
+  let id = req.body.no_karyawan;
+  let data = req.body.nama_karyawan;
+  let sql = "UPDATE karyawan SET nama_karyawan = '"+data+"' WHERE no_karyawan= "+id+";"
+  let query = conn.query(sql,data,(err, results) => {
+    if(err) throw err;
+    res.redirect('/karyawan');
+  });
+});
+
+app.get('/delete-karyawan/:no_karyawan', (req,res)=>{
+  let id = req.params.no_karyawan;
+  let sql = "DELETE FROM karyawan WHERE no_karyawan="+id+"";
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    res.redirect('/karyawan');
+  });
 });
 
 
@@ -276,9 +306,9 @@ app.get('/edit-produk/:no_produk', (req,res) => {
 });
 
 app.post('/update-produk/', (req,res)=>{
-  let id = req.body.no_jenis;
-  let data = req.body.nama_jenis;
-  let sql = "UPDATE jenis SET nama_jenis = '"+data+"' WHERE no_jenis= "+id+";"
+  let id = req.body.no_produk;
+  let data = req.body.nama_produk;
+  let sql = "UPDATE produk SET nama_produk = '"+data+"' WHERE no_produk= "+id+";"
   let query = conn.query(sql,data,(err, results) => {
     if(err) throw err;
     res.redirect('/produk');
@@ -287,7 +317,7 @@ app.post('/update-produk/', (req,res)=>{
 
 app.get('/delete-produk/:no_produk', (req,res)=>{
   let id = req.params.no_produk;
-  let sql = "DELETE FROM jenis WHERE no_produk="+id+"";
+  let sql = "DELETE FROM produk WHERE no_produk="+id+"";
   let query = conn.query(sql,(err, results) => {
     if(err) throw err;
     res.redirect('/produk');
@@ -298,12 +328,41 @@ app.get('/delete-produk/:no_produk', (req,res)=>{
 //HALAMAN KELOLA PENJUALAN
 
 app.get('/penjualan', (req,res) => {
-  let sql = "select penjualan.no_penjualan, penjualan.kd_penjualan, karyawan.nama_karyawan, penjualan.tanggal_penjualan, penjualan.deskripsi from penjualan INNER JOIN karyawan ON penjualan.no_karyawan = karyawan.no_karyawan;";
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-    res.render('manager/kelola-penjualan.ejs',{
-      listPenjualan: results,
-    });
+  // let sql = "select penjualan.no_penjualan, penjualan.kd_penjualan, karyawan.nama_karyawan, penjualan.tanggal_penjualan, penjualan.deskripsi from penjualan INNER JOIN karyawan ON penjualan.no_karyawan = karyawan.no_karyawan;";
+  // let query = conn.query(sql, (err, results) => {
+  //   if(err) throw err;
+  //   res.render('manager/kelola-penjualan.ejs',{
+  //     listPenjualan: results,
+  //   });
+  // });
+
+  async.parallel([
+    function(callback){
+      let sql = "select penjualan.no_penjualan, penjualan.kd_penjualan, karyawan.nama_karyawan, penjualan.tanggal_penjualan, penjualan.deskripsi from penjualan INNER JOIN karyawan ON penjualan.no_karyawan = karyawan.no_karyawan;";
+      let query = conn.query(sql, (err, results1) => {
+        if (err) {
+          return callback(err);
+        }
+        return callback(null, results1);
+      });
+    },function(callback){
+      let sql = `SELECT * from detailpenjualan;`;
+      let query = conn.query(sql, (err, results2) => {
+        if (err) {
+          return callback(err);
+        }
+        return callback(null, results2);
+      });
+    }
+  ], function(error,callbackResults){
+    if(error){
+      console.log(error);
+    }else{
+      res.render('manager/kelola-penjualan.ejs',{
+        listPenjualan:callbackResults[0],
+        listDetailPenjualan:callbackResults[1]
+      });
+    }
   });
 });
 
@@ -323,16 +382,38 @@ app.get('/kategori', (req,res) => {
   });
 });
 
-app.get('/edit-kategori', (req,res) => {
-  res.render('manager/edit/edit-kategori.ejs');
-});
+// app.get('/edit-kategori', (req,res) => {
+//   res.render('manager/edit/edit-kategori.ejs');
+// });
 
 app.get('/tambah-kategori', (req,res) => {
   res.render('manager/tambah/tambah-kategori.ejs');
 });
 
-app.get('/edit-kategori', (req,res) => {
-  res.render('manager/edit/edit-kategori.ejs');
+app.get('/edit-kategori/:no_kategori', (req,res) => {
+  let id = req.params.no_kategori;
+  console.log(id);
+  let sql = "SELECT * FROM kategori WHERE no_kategori="+id+"";
+  console.log(sql);
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    res.render('manager/edit/edit-kategori.ejs',{
+      dataKategori: results[0],
+    });
+  });
+});
+
+app.post('/update-kategori/', (req,res)=>{
+  let id = req.body.no_kategori;
+  console.log(id);
+  let data = req.body.nama_kategori;
+  console.log(data);
+  let sql = "UPDATE kategori SET nama_kategori = '"+data+"' WHERE no_kategori= "+id+";"
+  console.log(sql);
+  let query = conn.query(sql,data,(err, results) => {
+    if(err) throw err;
+    res.redirect('/kategori');
+  });
 });
 
 
@@ -374,13 +455,14 @@ app.post('/update-jenis/', (req,res)=>{
 
 app.get('/delete-jenis/:no_jenis', (req,res)=>{
   let id = req.params.no_jenis;
-  let sql = "DELETE FROM jenis WHERE no_jenis="+id+"";
+  console.log(id);
+  let sql = `DELETE FROM jenis WHERE no_jenis = '` + id + `';`;
+  console.log(sql);
   let query = conn.query(sql,(err, results) => {
     if(err) throw err;
     res.redirect('/jenis');
   });
 });
-
 
 
 

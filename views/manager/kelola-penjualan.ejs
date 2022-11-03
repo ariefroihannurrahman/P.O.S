@@ -91,12 +91,6 @@
                     <i class="lni lni-chevron-left me-2"></i> Menu
                   </button>
                 </div>
-                <div class="header-search d-none d-md-flex">
-                  <form action="/laporan-pemilik">
-                    <input type="text" placeholder="Cari" />
-                    <button type="submit"><i class="lni lni-search-alt"></i></button>
-                  </form>
-                </div>
               </div>
             </div>
             <div class="col-4 offset-3">
@@ -172,20 +166,13 @@
               <div class="card-style mb-30">
                 <div class="title d-flex flex-wrap justify-content-between">
                   <div class="left">
-                    <h6 class="text-medium mb-10">Laporan Penjualan Pertahun</h6>
+                    <h6 class="text-medium mb-10">Laporan Penjualan</h6>
                     <h3 class="text-bold">Rp.3.000.000</h3>
                 </div>
                   <div class="right">
-                    <div class="select-style-1">
-                      <div class="select-position select-sm">
-                        <select class="light-bg">
-                          <option value="tahun">Tahunan</option>
-                          <option value="bulan">Bulanan</option>
-                          <option value="minggu">Mingguan</option>
-                          <option value="hari">Harian</option>
-                        </select>
-                      </div>
-                    </div>
+                    <div class="tambah-penjualan">
+                      <a href="/tambah-penjualan" class="btn btn-primary">Tambah Penjualan</a>
+                  </div>
                   </div>
                 </div>
                 <!-- End Title -->
@@ -207,9 +194,9 @@
                             <th scope="row"><%= item.no_penjualan %></th>
                             <td><%= item.kd_penjualan %></td>
                             <td><%= item.nama_karyawan %></td>
-                            <td><%= item.tanggal_penjualan %></td>
-                            <td>Rp.3.000.000</td>
+                            <td><%= item.tanggal_penjualan.toLocaleString().split(",")[0] %></td>
                             <!-- <td><%= item.deskripsi %></td> -->
+                            <td><%= listDetailPenjualan.subtotal %></td>
                             <td>
                                 <button type="submit" class="btn btn-primary">Edit</button>
                             </td>
@@ -218,9 +205,6 @@
                     </tbody>
                 </table>
                 <!-- End Chart -->
-                <div class="tambah-penjualan">
-                    <a href="/tambah-penjualan" class="btn btn-primary">Tambah Penjualan</a>
-                </div>
               </div>
             </div>
             <!-- End Col -->

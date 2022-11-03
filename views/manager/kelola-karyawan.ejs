@@ -92,12 +92,6 @@
                     <i class="lni lni-chevron-left me-2"></i> Menu
                   </button>
                 </div>
-                <div class="header-search d-none d-md-flex">
-                  <form action="/laporan-pemilik">
-                    <input type="text" placeholder="Cari" />
-                    <button type="submit"><i class="lni lni-search-alt"></i></button>
-                  </form>
-                </div>
               </div>
             </div>
             <div class="col-4 offset-3">
@@ -206,13 +200,13 @@
                             <!-- <td><img class="product-img" src="images/profile/profile-1.jpg" alt="arief"></td> -->
                             <td><%= item.nomor_handphone %></td>
                             <td><%= item.jenis_kelamin %></td>
-                            <td><%= item.tanggal_rekrut %></td>
+                            <td><%= item.tanggal_rekrut.toLocaleString().split(",")[0] %></td>
                             <td><%= item.jabatan %></td>
                             <td><%= item.kode %></td>
                             <td><%= item.alamat %></td>
                             <td>
-                                <a href="/edit-karyawan" class="btn btn-primary">Edit</a>
-                                <a href="/delete-karyawan/<%= item.id %>" id="deleteKasir" class="btn btn-danger" data-id="<%= item.id %>">Delete</a>
+                                <a href="/edit-karyawan/<%= item.no_karyawan %>" class="btn btn-primary">Edit</a>
+                                <a href="/delete-karyawan/<%= item.no_karyawan %>" id="deleteKasir" class="btn btn-danger" data-id="<%= item.id %>">Delete</a>
                             </td>
                         </tr>
                       <%}) %>
