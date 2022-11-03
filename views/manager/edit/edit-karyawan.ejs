@@ -173,17 +173,17 @@
                       <label for="nama-karyawan">Masukkan Nama Karyawan : </label>
                       <input type="text" class="form-control" value="<%= dataKaryawan.nama_karyawan %>" name="nama_karyawan" id="nama-karyawan" placeholder="Masukkan Nama Karyawan">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="gambar">Masukkan Foto Karyawan</label>
                       <input type="file" class="form-control-file" value="<%= dataKaryawan.gambar_karyawan %> " id="gambar">
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="nomor-handphone">Masukkan Nomor Handphone : </label>
                         <input type="text" class="form-control" value="<%= dataKaryawan.nomor_handphone %>" name="nomor_handphone" id="nomor-handphone" placeholder="Masukkan Nomor Handphone">
                       </div>
                       <div class="form-group">
-                        <label for="tanggal-rekrut">Masukkan Tanggal Rekrut : </label>
-                        <input type="text" class="form-control" value="<%= dataKaryawan.tanggal_rekrut.toLocaleString().split(",")[0] %>" name="tanggal_rekrut" id="tanggal-rekrut" placeholder="Masukkan Tanggal Rekrut">
+                        <label for="tanggal-rekrut">Masukkan Tanggal Rekrut : (hari/bulan/tahun) </label>
+                        <input type="date" class="form-control" value="<%= dataKaryawan.tanggal_rekrut.toLocaleDateString('en-CA') %>" name="tanggal_rekrut" id="tanggal-rekrut" placeholder="Masukkan Tanggal Rekrut">
                       </div>
                       <div class="form-group">
                         <label for="kode">Masukkan Kode : </label>
@@ -191,22 +191,22 @@
                       </div>
                       <div class="radio-button-group">
                         <p>Jenis Kelamin : </p>
-                        <% if(dataKaryawan.jenis_kelamin == "pria" ) {%>
+                        <% if(dataKaryawan.jenis_kelamin.toLowerCase() == "laki - laki") {%>
                           <div class="form-check form-check-inline">
-                              <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="pria" value="pria" checked="checked">
+                              <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="pria" value="Laki - Laki" checked="checked">
                               <label class="form-check-label" for="pria">Laki - Laki</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="perempuan" value="">
+                                <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="perempuan" value="Perempuan">
                                 <label class="form-check-label" for="perempuan">Perempuan</label>
                             </div>
                         <%} else {%> 
                           <div class="form-check form-check-inline">
-                            <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="pria" value="pria">
+                            <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="pria" value="Laki - Laki">
                             <label class="form-check-label" for="pria">Laki - Laki</label>
                           </div>
                           <div class="form-check form-check-inline">
-                              <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="perempuan" checked="checked">
+                              <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="Perempuan" checked="checked" value="Perempuan">
                               <label class="form-check-label" for="perempuan">Perempuan</label>
                           </div>
                         <% } %> 
@@ -217,7 +217,7 @@
                           </div>
 
                     <a href="/karyawan" class="btn btn-primary">Kembali</a>
-                    <input type="text" name="no_kategori" value="<%= dataKaryawan.no_karyawan %>" hidden>
+                    <input type="text" name="no_karyawan" value="<%= dataKaryawan.no_karyawan %>" hidden>
                     <button type="submit" class="btn btn-primary">Edit</button>
                   </form>
               </div>

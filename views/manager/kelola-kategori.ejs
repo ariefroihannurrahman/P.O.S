@@ -189,7 +189,7 @@
                             <td><%= item.nama_kategori %></td>
                             <td>
                                 <a href="/edit-kategori/<%=item.no_kategori%>" class="btn btn-primary">Edit</a>
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <a href="/delete-kategori/<%= item.no_kategori %>" id="delete-kategori" class="btn btn-danger" data-no="<%= item.no_kategori %>">Delete</a>
                             </td>
                         </tr>
                         <%}) %>

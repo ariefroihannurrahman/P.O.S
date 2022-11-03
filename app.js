@@ -191,7 +191,7 @@ app.get('/manager',(req,res)=>{
 // HALAMAN KELOLA KARYAWAN
 
 app.get('/karyawan', (req,res) => {
-  let sql = "SELECT * FROM karyawan";
+  let sql = "SELECT * FROM karyawan ORDER BY id_karyawan ASC";
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
     res.render('manager/kelola-karyawan.ejs',{
@@ -202,6 +202,23 @@ app.get('/karyawan', (req,res) => {
 
 app.get('/tambah-karyawan', (req,res) => {
   res.render('manager/tambah/tambah-karyawan.ejs');
+});
+
+app.post('/add-karyawan',(req, res) => {
+  let {
+    id_karyawan,
+    nama_karyawan,
+    nomor_handphone,
+    jenis_kelamin,
+    tanggal_rekrut,
+    kode,
+    alamat
+  } = req.body;
+  let sql = `INSERT INTO karyawan (no_karyawan, id_karyawan, nama_karyawan, gambar_karyawan, nomor_handphone, jenis_kelamin, tanggal_rekrut, jabatan, kode, alamat) VALUES (NULL, '${id_karyawan}', '${nama_karyawan}', NULL, '${nomor_handphone}', '${jenis_kelamin}', '${tanggal_rekrut}', 'kasir', '${kode}', '${alamat}');`;
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    res.redirect('/karyawan');
+  });
 });
 
 app.get('/edit-karyawan/:no_karyawan', (req,res) => {
@@ -216,10 +233,16 @@ app.get('/edit-karyawan/:no_karyawan', (req,res) => {
 });
 
 app.post('/update-karyawan/', (req,res)=>{
-  let id = req.body.no_karyawan;
-  let data = req.body.nama_karyawan;
-  let sql = "UPDATE karyawan SET nama_karyawan = '"+data+"' WHERE no_karyawan= "+id+";"
-  let query = conn.query(sql,data,(err, results) => {
+  let {
+    no_karyawan,
+    nama_karyawan,
+    nomor_handphone,
+    tanggal_rekrut,
+    jenis_kelamin,
+    alamat
+  } = req.body;
+  let sql = "UPDATE karyawan SET nama_karyawan = '"+ nama_karyawan +"', nomor_handphone = '"+ nomor_handphone +"', tanggal_rekrut = '"+ tanggal_rekrut.toLocaleString().split(",")[0] +"', jenis_kelamin = '"+ jenis_kelamin +"', alamat = '"+ alamat +"' WHERE no_karyawan= '"+ no_karyawan +"';";
+  let query = conn.query(sql,(err, results) => {
     if(err) throw err;
     res.redirect('/karyawan');
   });
@@ -278,16 +301,17 @@ app.get('/tambah-produk', (req,res) => {
 });
 
 app.post('/add-produk',(req, res) => {
-  let data = {
-    kd_produk : req.body.kode_produk,
-    nama_produk : req.body.nama_produk,
-    no_jenis : req.body.pilih_jenis,
-    no_kategori : req.body.pilih_kategori,
-    harga : req.body.harga_produk
-  };
+  let {
+    kd_produk,
+    nama_produk,
+    no_jenis,
+    no_kategori,
+    harga
+  } = req.body;
+
   session.laporan_awal = req.body.laporan_awal;
-  let sql = "INSERT INTO produk SET ?";
-  let query = conn.query(sql, data,(err, results) => {
+  let sql = `INSERT INTO produk (no_produk, kd_produk, nama_produk, gambar_produk, no_jenis, no_kategori, harga) VALUES (NULL, '${kd_produk}', '${nama_produk}', null, '${no_jenis}', '${no_kategori}', '${harga}');`;
+  let query = conn.query(sql,(err, results) => {
     if(err) throw err;
     // res.redirect('/kasir');
     res.redirect('/produk');
@@ -336,12 +360,15 @@ app.get('/edit-produk/:no_produk', (req,res) => {
 });
 
 app.post('/update-produk/', (req,res)=>{
-  let no_produk = req.body.no_produk;
-  let kd_produk = req.body.kd_produk;
-  let nama_produk = req.body.nama_produk;
-  let no_jenis = req.body.no_jenis;
-  let no_kategori = req.body.no_kategori;
-  let harga = req.body.harga;
+  let { 
+    no_produk,
+    kd_produk,
+    nama_produk,
+    no_jenis,
+    no_kategori,
+    harga 
+    } = req.body;
+
   let sql = "UPDATE produk SET kd_produk = '"+ kd_produk +"', nama_produk = '"+ nama_produk +"', no_jenis = '"+no_jenis+"', no_kategori = '"+no_kategori+"', harga = '"+ harga +"' WHERE no_produk= "+no_produk+";";
   let query = conn.query(sql,(err, results) => {
     if(err) throw err;
@@ -424,6 +451,15 @@ app.get('/tambah-kategori', (req,res) => {
   res.render('manager/tambah/tambah-kategori.ejs');
 });
 
+app.post('/add-kategori',(req, res) => {
+  let { nama_kategori } = req.body;
+  let sql = `INSERT INTO kategori (no_kategori, nama_kategori) VALUES (NULL, '${nama_kategori}');`;
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    res.redirect('/kategori');
+  });
+});
+
 app.get('/edit-kategori/:no_kategori', (req,res) => {
   let id = req.params.no_kategori;
   console.log(id);
@@ -439,11 +475,8 @@ app.get('/edit-kategori/:no_kategori', (req,res) => {
 
 app.post('/update-kategori/', (req,res)=>{
   let id = req.body.no_kategori;
-  console.log(id);
   let data = req.body.nama_kategori;
-  console.log(data);
   let sql = "UPDATE kategori SET nama_kategori = '"+data+"' WHERE no_kategori= "+id+";"
-  console.log(sql);
   let query = conn.query(sql,data,(err, results) => {
     if(err) throw err;
     res.redirect('/kategori');
@@ -464,6 +497,15 @@ app.get('/jenis', (req,res) => {
 
 app.get('/tambah-jenis', (req,res) => {
   res.render('manager/tambah/tambah-jenis.ejs');
+});
+
+app.post('/add-jenis',(req, res) => {
+  let { nama_jenis } = req.body;
+  let sql = `INSERT INTO jenis (no_jenis, nama_jenis) VALUES (NULL, '${nama_jenis}');`;
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    res.redirect('/jenis');
+  });
 });
 
 app.get('/edit-jenis/:no_jenis', (req,res) => {
@@ -488,38 +530,13 @@ app.post('/update-jenis/', (req,res)=>{
 });
 
 app.get('/delete-jenis/:no_jenis', (req,res)=>{
-  let id = req.params.no_jenis;
-  console.log(id);
-  let sql = `DELETE FROM jenis WHERE no_jenis = '` + id + `';`;
-  console.log(sql);
+  let no = req.params.no_jenis;
+  let sql = `DELETE FROM jenis WHERE no_jenis = "${no}";`;
   let query = conn.query(sql,(err, results) => {
     if(err) throw err;
     res.redirect('/jenis');
   });
 });
-
-
-
-
-
-
-// app.post('/add-karyawan',(req, res) => {
-//   let data = {
-//     no_karyawan: req.body.nama_kasir, 
-//     nama_karyawan: req.body.no_hp,
-//     nomor_handphone: req.body.alamat_kasir,
-//     jenis_kelamin: req.body.kode_kasir,
-//     tanggal_rekrut: req.body.kode_kasir,
-//     jabatan: req.body.kode_kasir,
-//     kode: req.body.kode_kasir,
-//     alamat: req.body.kode_kasir
-//   };
-//   let sql = "INSERT INTO kasir SET ?";
-//   let query = conn.query(sql, data,(err, results) => {
-//     if(err) throw err;
-//     res.redirect('/manager/kasir');
-//   });
-// });
 
 
 

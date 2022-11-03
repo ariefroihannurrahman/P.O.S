@@ -258,7 +258,6 @@
                       <th scope="col">Jenis Produk</th>
                       <th scope="col">Kategori Produk</th>
                       <th scope="col">Harga</th>
-                      <th scope="col">Aksi</th>
                   </tr>
               </thead>
               <tbody>
@@ -271,10 +270,6 @@
                       <td><%= item.nama_jenis %></td>
                       <td><%= item.nama_kategori %></td>
                       <td><%= item.harga %></td>
-                      <td>
-                          <a href="/edit-produk" class="btn btn-primary">Edit</a>
-                          <button type="submit" class="btn btn-danger">Delete</button>
-                      </td>
                   </tr>
                   <%}) %>
               </tbody>

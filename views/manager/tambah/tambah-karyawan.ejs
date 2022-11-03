@@ -172,41 +172,45 @@
           <div class="row">
             <div class="col">
               <div class="card-style">
-                <form>
+                <form action="/add-karyawan" method="post">
+                  <div class="form-group">
+                    <label for="id_karyawan">Masukkan ID Karyawan : </label>
+                    <input type="text" class="form-control" id="id_karyawan" name="id_karyawan" placeholder="Masukkan ID Karyawan">
+                  </div>
                     <div class="form-group">
                       <label for="nama-karyawan">Masukkan Nama Karyawan : </label>
-                      <input type="text" class="form-control" id="nama-karyawan" placeholder="Masukkan Nama Karyawan">
+                      <input type="text" class="form-control" id="nama-karyawan" name="nama_karyawan" placeholder="Masukkan Nama Karyawan">
                     </div>
-                    <div class="custom-file">
+                    <!-- <div class="custom-file">
                       <input type="file" class="custom-file-input" name="gambar_karyawan" id="gambar_karyawan">
-                      <label class="custom-file-label" for="gambar_karyawan">Choose file...</label>
-                    </div>
+                      <label class="custom-file-label" for="gambar_karyawan">Pilih File...</label>
+                    </div> -->
                     <div class="form-group">
                         <label for="nomor-handphone">Masukkan Nomor Handphone : </label>
-                        <input type="text" class="form-control" id="nomor-handphone" placeholder="Masukkan Nomor Handphone">
+                        <input type="text" class="form-control" id="nomor-handphone" name="nomor_handphone" placeholder="Masukkan Nomor Handphone">
                       </div>
                       <div class="form-group">
-                        <label for="tanggal-rekrut">Masukkan Tanggal Rekrut : </label>
-                        <input type="text" class="form-control" id="tanggal-rekrut" placeholder="Masukkan Tanggal Rekrut">
+                        <label for="tanggal-rekrut">Masukkan Tanggal Rekrut : (Tahun-Bulan-Hari)</label>
+                        <input type="text" class="form-control" id="tanggal-rekrut" name="tanggal_rekrut" placeholder="Masukkan Tanggal Rekrut">
                       </div>
                       <div class="form-group">
                         <label for="kode">Masukkan Kode : </label>
-                        <input type="text" class="form-control" id="kode" placeholder="Masukkan Kode">
+                        <input type="text" class="form-control" id="kode" name="kode" placeholder="Masukkan Kode">
                       </div>
                       <div class="radio-button-group">
                         <p>Jenis Kelamin : </p>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input mt-1" type="radio" name="inlineRadioOptions" id="pria" value="option1">
+                            <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="pria" value="Laki - Laki">
                             <label class="form-check-label" for="pria">Laki - Laki</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input mt-1" type="radio" name="inlineRadioOptions" id="perempuan" value="option2">
+                            <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="perempuan" value="Perempuan">
                             <label class="form-check-label" for="perempuan">Perempuan</label>
                         </div>
-                        </div>
+                      </div>
                         <div class="form-group mt-2">
                             <label for="alamat">Masukkan Alamat</label>
-                            <textarea class="form-control" id="alamat" rows="3"></textarea>
+                            <textarea class="form-control" id="alamat" name="alamat" rows="3"></textarea>
                           </div>
 
                     <a href="/karyawan" class="btn btn-primary">Kembali</a>
