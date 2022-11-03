@@ -91,6 +91,12 @@
                     <i class="lni lni-chevron-left me-2"></i> Menu
                   </button>
                 </div>
+                <div class="header-search d-none d-md-flex">
+                  <form action="/laporan-pemilik">
+                    <input type="text" placeholder="Cari" />
+                    <button type="submit"><i class="lni lni-search-alt"></i></button>
+                  </form>
+                </div>
               </div>
             </div>
             <div class="col-4 offset-3">
@@ -106,7 +112,8 @@
                   >
                     <div class="profile-info">
                       <div class="info">
-                        <h6 class="mr-3">Manager</h6>
+                        <h6>Arief Roihan Nur Rahman</h6>
+                        <img class="w-25 h-25 ml-2 rounded" src="/images/profile/profile-1.jpg" alt="Foto Profile" />
                       </div>
                     </div>
                     <i class="lni lni-chevron-down"></i>
@@ -169,11 +176,11 @@
                 <form action="/update-produk/" method="post">
                   <div class="form-group">
                     <label for="nama-produk">Masukkan Kode Produk : </label>
-                    <input type="text" name="kode_produk" class="form-control" id="nama-produk" placeholder="Masukkan Nama Produk">
+                    <input type="text" name="kd_produk" class="form-control" id="nama-produk" value="<%= dataProduk[0].kd_produk %>">
                   </div>
                     <div class="form-group">
                       <label for="nama-produk">Masukkan Nama Produk : </label>
-                      <input type="text" name="nama_produk" class="form-control" id="nama-produk" placeholder="Masukkan Nama Produk">
+                      <input type="text" name="nama_produk" class="form-control" id="nama-produk" value="<%= dataProduk[0].nama_produk %>">
                     </div>
                     <!-- <div class="form-group">
                         <label for="input-gambar">Masukkan Gambar : </label>
@@ -181,30 +188,37 @@
                       </div> -->
                       <div class="form-row">
                         <div class="form-group col-6">
-                            <label for="pilih-jenis">Pilih Jenis : </label>
-                            <select id="pilih-jenis" name="pilih_jenis" class="form-control">
-                            <option selected>Pilih</option>
+                          <label for="pilih-jenis">Pilih Jenis : </label>
+                          <select id="pilih-jenis" name="no_jenis" class="form-control">
                             <% listJenis.forEach((item)=>{ %>
-                            <option value="<%= item.no_jenis %>"><%= item.nama_jenis %></option>
-                            <%}) %>
-                            </select>
+                              <% if(listJenis.no_jenis == dataProduk.no_jenis){ %> 
+                              <option selected value="<%= item.no_jenis %>"><%= item.nama_jenis %></option>
+                              <% } else { %> 
+                              <option value="<%= item.no_jenis %>"><%= item.nama_jenis %></option>
+                              <% } %> 
+                            <% }) %> 
+                          </select>
                         </div>
                         <div class="form-group col-6">
                             <label for="pilih-kategori">Pilih Kategori : </label>
-                            <select id="pilih-kategori" name="pilih_kategori" class="form-control">
-                            <option selected>Pilih</option>
-                            <% listKategori.forEach((item)=>{ %>
-                            <option value="<%= item.no_kategori %>"><%= item.nama_kategori %></option>
-                            <%}) %>
+                            <select id="pilih-kategori" name="no_kategori" class="form-control">
+                              <% listKategori.forEach((item)=>{ %>
+                                <% if(listKategori.no_kategori == dataProduk.no_kategori){ %> 
+                                <option selected value="<%= item.no_kategori %>"><%= item.nama_kategori %></option>
+                                <% } else { %> 
+                                <option value="<%= item.no_kategori %>"><%= item.nama_kategori %></option>
+                                <% } %> 
+                              <% }) %>
                             </select>
                         </div>
                         </div>
                         <div class="form-group">
-                            <label for="nama-produk">Masukkan Nama Produk : </label>
-                            <input type="text" class="form-control" name="harga_produk" id="nama-produk" placeholder="Masukkan Harga Produk">
+                            <label for="harga-produk">Masukkan Harga Produk : </label>
+                            <input type="text" class="form-control" name="harga" id="harga-produk" value="<%= dataProduk[0].harga %>">
                           </div>
 
                     <a href="/produk" class="btn btn-primary">Kembali</a>
+                    <input type="text" name="no_produk" value="<%= dataProduk[0].no_produk %>" hidden>
                     <button type="submit" class="btn btn-primary">Edit</button>
                   </form>
               </div>

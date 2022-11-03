@@ -295,21 +295,55 @@ app.post('/add-produk',(req, res) => {
 });
 
 app.get('/edit-produk/:no_produk', (req,res) => {
-  let id = req.params.no_produk;
-  let sql = "SELECT * FROM produk WHERE no_produk="+id+"";
-  let query = conn.query(sql,(err, results) => {
-    if(err) throw err;
-    res.render('manager/edit/edit-produk.ejs',{
-      dataProduk: results[0],
-    });
+  async.parallel([
+    function(callback){
+      let id = req.params.no_produk;
+      let sql = "SELECT * FROM produk WHERE no_produk="+id+"";
+      let query = conn.query(sql,(err, results) => {
+        if (err) {
+          return callback(err);
+        }
+        return callback(null, results);
+      });
+    },function(callback){
+      let sql = "SELECT * FROM jenis";
+      let query = conn.query(sql, (err, results2) => {
+        if (err) {
+          return callback(err);
+        }
+        return callback(null, results2);
+      });
+    },function(callback){
+      let sql = "SELECT * FROM kategori";
+      let query = conn.query(sql, (err, results3) => {
+        if (err) {
+          return callback(err);
+        }
+        return callback(null, results3);
+      });
+    }
+  ], function(error,callbackResults){
+    if(error){
+      console.log(error);
+    }else{
+      res.render('manager/edit/edit-produk.ejs',{
+        dataProduk:callbackResults[0],
+        listJenis:callbackResults[1],
+        listKategori:callbackResults[2],
+      });
+    }
   });
 });
 
 app.post('/update-produk/', (req,res)=>{
-  let id = req.body.no_produk;
-  let data = req.body.nama_produk;
-  let sql = "UPDATE produk SET nama_produk = '"+data+"' WHERE no_produk= "+id+";"
-  let query = conn.query(sql,data,(err, results) => {
+  let no_produk = req.body.no_produk;
+  let kd_produk = req.body.kd_produk;
+  let nama_produk = req.body.nama_produk;
+  let no_jenis = req.body.no_jenis;
+  let no_kategori = req.body.no_kategori;
+  let harga = req.body.harga;
+  let sql = "UPDATE produk SET kd_produk = '"+ kd_produk +"', nama_produk = '"+ nama_produk +"', no_jenis = '"+no_jenis+"', no_kategori = '"+no_kategori+"', harga = '"+ harga +"' WHERE no_produk= "+no_produk+";";
+  let query = conn.query(sql,(err, results) => {
     if(err) throw err;
     res.redirect('/produk');
   });
@@ -317,7 +351,7 @@ app.post('/update-produk/', (req,res)=>{
 
 app.get('/delete-produk/:no_produk', (req,res)=>{
   let id = req.params.no_produk;
-  let sql = "DELETE FROM produk WHERE no_produk="+id+"";
+  let sql = "DELETE FROM produk WHERE no_produk="+ id +";";
   let query = conn.query(sql,(err, results) => {
     if(err) throw err;
     res.redirect('/produk');
