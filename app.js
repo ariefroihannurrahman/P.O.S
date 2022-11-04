@@ -119,9 +119,20 @@ app.get('/cari-produk', (req,res) => {
 });
 
 //====================
-app.get('/owner', (req,res) => {
-  res.render('owner/laporan-pemilik.ejs');
-});
+// app.get('/owner', (req, res)=>{
+//   res.render('owner/laporan-pemilik.ejs')
+// });
+
+app.get('/owner', (req, res) => {
+  let sql = "select penjualan.no_penjualan, penjualan.kd_penjualan, karyawan.nama_karyawan, penjualan.tanggal_penjualan, penjualan.deskripsi from penjualan INNER JOIN karyawan ON penjualan.no_karyawan = karyawan.no_karyawan;";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.render('owner/laporan-pemilik.ejs',{
+      listOwner: results,
+    });
+  });
+})
+
 //====================
 
 

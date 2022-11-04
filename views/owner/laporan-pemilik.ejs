@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
+    <% console.log(listOwner) %> 
     <!-- ======== sidebar-nav start =========== -->
     <aside class="sidebar-nav-wrapper">
       <div class="navbar-logo">
@@ -166,13 +167,15 @@
                     </tr>
                   </thead>
                     <tbody>
+                      <% listOwner.forEach((item)=>{ %> 
                       <tr>
                         <th scope="row">1</th>
-                        <td>P01112022010001</td>
-                        <td>Arief</td>
+                        <td><%= item.kd_penjualan %></td>
+                        <td><%= item.nama_karyawan %> </td>
                         <td>01/11/2022</td>
                         <td>Rp.3.000.000</td>
                       </tr>
+                      <% }); %> 
                     </tbody>
                 </table>
                 <!-- End Chart -->
