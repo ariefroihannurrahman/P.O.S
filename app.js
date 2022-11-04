@@ -13,7 +13,8 @@ app.listen(3000, () => {
 
 app.use(express.static('public'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 var conn = mysql.createConnection({
     host: "localhost",
@@ -106,13 +107,80 @@ app.post('/add-laporan-akhir',(req, res) => {
 
 //============
 
-app.get('/cari-produk', (req,res) => {
-  res.render('kasir/cari-produk.ejs');
-});
 
 app.get('/kasir', (req,res) => {
   res.render('kasir/home-kasir.ejs');
 });
+
+app.post("/get-produk-kode", function(request, response, next){
+	var kode = request.body.kode;
+	var query = `SELECT * FROM produk WHERE kd_produk = "${kode}"`;
+	conn.query(query, function(error, data){
+		response.json(data[0]);
+	});
+});
+
+app.post("/save-item", function(request, response, next){
+	var idt = request.body.id_transaksi;
+	var idp = request.body.id_produk;
+	var kuantitas = request.body.kuantitas;
+	var subtotal = request.body.subtotal;
+
+	// console.log(idt)
+	// console.log(idp)
+	// console.log(kuantitas)
+	// console.log(subtotal)
+
+	var query = `INSERT INTO detailtransaksi (id_detail, id_transaksi, id_produk, kuantitas, subtotal) VALUES ("", "${idt}", "${idp}", "${kuantitas}", "${subtotal}")`;
+	conn.query(query, function(error, data){
+		console.log("Sukses Detail Transaksi");
+		
+	});
+});
+
+app.post("/get-item-list", function(request, response, next){
+	var idt = request.body.id_transaksi;
+	var query = `select detailtransaksi.id_detail, produk.nama_produk, produk.harga, detailtransaksi.kuantitas, detailtransaksi.subtotal from detailtransaksi INNER JOIN produk ON detailtransaksi.id_produk = produk.id_produk WHERE id_transaksi = "${idt}"`;
+	conn.query(query, function(error, data){
+		response.json(data);
+	});
+});
+
+app.post("/save-penjualan", function(request, response, next){
+	var idp = request.body.id_penjualan;
+	var idk = request.body.id_karyawan;
+	var tp = request.body.tanggal_penjualan;
+	var total = request.body.total_transaksi;
+	var bayar = request.body.bayar;
+	var kembali = request.body.kembali;
+
+	var query = `INSERT INTO transaksi (id_penjualan, id_karyawan, tanggal_penjualan, total_transaksi, bayar, kembali) VALUES ("${idp}", "${idk}", "${tp}", "${total}", "${bayar}", "${kembali}")`;
+	conn.query(query, function(error, data){
+		console.log("Sukses Transaksi");
+	});
+
+  res.redirect('/kasir');
+});
+
+app.get('/delete-item/:id_detail', (req,res)=>{
+  let id = req.params.id_detail;
+  let sql = "DELETE FROM detailtransaksi WHERE id_detail="+id+"";
+  let query = conn.query(sql,(err, results) => {
+    if(err) throw err;
+    
+  });
+});
+
+
+
+
+
+
+
+app.get('/cari-produk', (req,res) => {
+  res.render('kasir/cari-produk.ejs');
+});
+
 
 app.get('/cari-produk', (req,res) => {
   res.render('cari-produk.ejs');

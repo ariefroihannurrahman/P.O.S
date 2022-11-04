@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "dev": "nodemon ./app.js localhost 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@mdi/font": "^7.0.96",
     "ejs": "^3.1.8",
