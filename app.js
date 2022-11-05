@@ -13,7 +13,6 @@ app.listen(3000, () => {
 
 app.use(express.static('public'));
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
 
 var conn = mysql.createConnection({
@@ -23,15 +22,14 @@ var conn = mysql.createConnection({
     database: "pos"
 });
 
-
 app.use(session({
   secret: 'secret',
   resave: true,
   saveUninitialized: true,
   loggedin: false,
-  laporan_awal:null
+  laporan_awal:null,
+  id_session: null
 }));
-
 
 
 let date_time = new Date();
@@ -40,6 +38,11 @@ let month1 = ("0" + (date_time.getMonth() + 1)).slice(-2);
 let year1 = date_time.getFullYear();
 let tanggal = year1 + "-" + month1 + "-" + date1;
 let tanggal2 =year1+month1+date1;
+
+
+//===========================================================//
+//===================== /SETTING ============================//
+//===========================================================//
 
 
 app.get('/',(req,res)=>{
@@ -57,6 +60,7 @@ app.post('/auth', function(req,res) {
       if (results.length > 0) {
           req.session.loggedin = true;
           req.session.dataKasir = results[0];
+          req.session.id_session = year1+""+month1+""+date1+""+results[0].id_karyawan;
           res.redirect('/laporan-awal');
       } else {
         res.send('Kode Salah!');
@@ -65,7 +69,9 @@ app.post('/auth', function(req,res) {
     });
 });
 
-//LAPORAN AWAL
+//===========================================================//
+//===================== /LOGIN AUTH ============================//
+//===========================================================//
 
 app.get('/laporan-awal', (req,res) => {
   res.render('kasir/laporan-awal.ejs',{
@@ -75,6 +81,7 @@ app.get('/laporan-awal', (req,res) => {
 
 app.post('/add-laporan-awal',(req, res) => {
   let data = {
+    id_laporan : req.session.id_session,
     no_karyawan : req.session.dataKasir.no_karyawan,
     tanggal_laporan : tanggal,
     laporan_awal : req.body.laporan_awal
@@ -94,20 +101,22 @@ app.get('/laporan-akhir', (req,res) => {
   });
 });
 
-
 app.post('/add-laporan-akhir',(req, res) => {
-  let sql = "UPDATE laporan_kasir SET laporan_akhir ='"+req.body.laporan_akhir+"' WHERE no_karyawan="+req.session.dataKasir.no_karyawan+";"
+  let sql = "UPDATE laporan_kasir SET laporan_akhir ='"+req.body.laporan_akhir+"' WHERE id_laporan="+req.session.id_session+";"
   
   let query = conn.query(sql,(err, results) => {
     if(err) throw err;
     req.session.loggedin = false;
     req.session.dataKasir = null;
+    req.session.id_session = null;
     res.redirect('/');
   });
 });
 
 
-//============
+//===========================================================//
+//===================== /Laporan Laci ============================//
+//===========================================================//
 
 
 app.get('/kasir', (req,res) => {
@@ -133,11 +142,6 @@ app.post("/save-item", function(request, response, next){
 	var idp = request.body.id_produk;
 	var kuantitas = request.body.kuantitas;
 	var subtotal = request.body.subtotal;
-
-	// console.log(idt)
-	// console.log(idp)
-	// console.log(kuantitas)
-	// console.log(subtotal)
 
 	var query = `INSERT INTO detailtransaksi (id_detail, id_transaksi, id_produk, kuantitas, subtotal) VALUES ("", "${idt}", "${idp}", "${kuantitas}", "${subtotal}")`;
 	conn.query(query, function(error, data){
@@ -181,7 +185,9 @@ app.post('/delete-item/', (req,res)=>{
 });
 
 
-
+//===========================================================//
+//===================== /KASIR UTAMA ============================//
+//===========================================================//
 
 
 
