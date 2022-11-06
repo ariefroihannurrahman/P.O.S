@@ -179,7 +179,6 @@
                 <table class="table text-center">
                     <thead>
                         <tr>
-                            <th scope="col">No.</th>
                             <th scope="col">Kode Penjualan</th>
                             <th scope="col">Nama Karyawan</th>
                             <th scope="col">Tanggal Penjualan</th>
@@ -191,14 +190,13 @@
                     <tbody>
                       <% listPenjualan.forEach((item)=>{%>
                         <tr>
-                            <th scope="row"><%= item.no_penjualan %></th>
                             <td><%= item.kd_penjualan %></td>
                             <td><%= item.nama_karyawan %></td>
-                            <td><%= item.tanggal_penjualan.toLocaleString().split(",")[0] %></td>
+                            <td><%= item.tanggal_penjualan.toLocaleString('id-ID').split(" ")[0] %></td>
                             <!-- <td><%= item.deskripsi %></td> -->
                             <td><%= item.subtotal %></td>
                             <td>
-                                <button type="submit" class="btn btn-primary">Edit</button>
+                                <a href="/edit-penjualan/<%= item.no_penjualan %>" class="btn btn-primary">Edit</a>
                             </td>
                         </tr>
                       <% }) %>

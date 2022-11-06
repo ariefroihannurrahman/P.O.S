@@ -187,6 +187,7 @@
                             <th scope="col">Jabatan</th>
                             <th scope="col">Kode Kasir</th>
                             <th scope="col">Alamat</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
@@ -203,9 +204,10 @@
                             <td><%= item.jabatan %></td>
                             <td><%= item.kode %></td>
                             <td><%= item.alamat %></td>
+                            <td><%= item.status %></td>
                             <td>
                                 <a href="/edit-karyawan/<%= item.no_karyawan %>" class="btn btn-primary">Edit</a>
-                                <a href="/delete-karyawan/<%= item.no_karyawan %>" id="deleteKasir" class="btn btn-danger" data-id="<%= item.id %>">Delete</a>
+                                <!-- <a href="/delete-karyawan/<%= item.no_karyawan %>" id="deleteKasir" class="btn btn-danger" data-id="<%= item.id %>">Delete</a> -->
                             </td>
                         </tr>
                       <%}) %>
