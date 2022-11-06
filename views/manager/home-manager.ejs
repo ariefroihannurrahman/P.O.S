@@ -171,7 +171,7 @@
                 <table class="table text-center">
                   <thead>
                     <tr>
-                        <th scope="col">No.</th>
+                        <!-- <th scope="col">No.</th> -->
                         <th scope="col">Kode Penjualan</th>
                         <th scope="col">Nama Karyawan</th>
                         <th scope="col">Tanggal Penjualan</th>
@@ -182,10 +182,10 @@
                 <tbody>
                   <% listPenjualan.forEach((item)=>{ %>
                     <tr>
-                        <th scope="row"><%= item.no_penjualan %></th>
+                        <!-- <th scope="row"><%= item.no_penjualan %></th> -->
                         <td><%= item.kd_penjualan %></td>
                         <td><%= item.nama_karyawan %></td>
-                        <td><%= item.tanggal_penjualan.toLocaleString().split(",")[0] %></td>
+                        <td><%= item.tanggal_penjualan.toLocaleString('id-ID').split(" ")[0] %></td>
                         <td>Rp.3.000.000</td>
                         <!-- <td><%= item.deskripsi %></td> -->
                     </tr>
@@ -227,7 +227,7 @@
                         <!-- <td><img class="product-img" src="images/profile/profile-1.jpg" alt="arief"></td> -->
                         <td><%= item.nomor_handphone %></td>
                         <td><%= item.jenis_kelamin %></td>
-                        <td><%= item.tanggal_rekrut.toLocaleString().split(",")[0] %></td>
+                        <td><%= item.tanggal_rekrut.toLocaleString('id-ID').split(" ")[0] %></td>
                         <td><%= item.jabatan %></td>
                         <td><%= item.kode %></td>
                         <td><%= item.alamat %></td>
@@ -251,7 +251,7 @@
               <table class="table text-center">
                 <thead>
                   <tr>
-                      <th scope="col">No.</th>
+                      <!-- <th scope="col">No.</th> -->
                       <th scope="col">Kode Produk</th>
                       <!-- <th scope="col">Gambar Produk</th> -->
                       <th scope="col">Nama Produk</th>
@@ -263,7 +263,7 @@
               <tbody>
                 <% listProduk.forEach((item)=>{ %>
                   <tr>
-                      <th scope="row"><%= item.no_produk %></th>
+                      <!-- <th scope="row"><%= item.no_produk %></th> -->
                       <td><%= item.kd_produk %></td>
                       <!-- <td><img class="product-img" src="images/products/Peuyeum.jpg" alt="Peuyeum"></td> -->
                       <td><%= item.nama_produk %></td>
@@ -278,7 +278,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col-6">
             <div class="card-style mb-30">
               <div class="title d-flex flex-wrap justify-content-between">
                 <div class="left">
@@ -289,14 +289,14 @@
               <table class="table text-center">
                 <thead>
                   <tr>
-                      <th scope="col">No.</th>
+                      <!-- <th scope="col">No.</th> -->
                       <th scope="col">Nama Kategori</th>
                   </tr>
               </thead>
               <tbody>
                 <% listKategori.forEach((item)=>{ %>
                   <tr>
-                      <th scope="row"><%= item.no_kategori %></th>
+                      <!-- <th scope="row"><%= item.no_kategori %></th> -->
                       <td><%= item.nama_kategori %></td>
                   </tr>
                   <%}) %>
@@ -305,9 +305,9 @@
               <!-- End Chart -->
             </div>
           </div>
-          </div>
-          <div class="row">
-            <div class="col">
+          <!-- </div>
+          <div class="row"> -->
+            <div class="col-6">
               <div class="card-style mb-30">
                 <div class="title d-flex flex-wrap justify-content-between">
                   <div class="left">
@@ -317,14 +317,14 @@
                 <table class="table text-center">
                   <thead>
                     <tr>
-                        <th scope="col">No.</th>
+                        <!-- <th scope="col">No.</th> -->
                         <th scope="col">Nama Jenis</th>
                     </tr>
                 </thead>
                 <tbody>
                   <% listJenis.forEach((item)=>{ %>
                     <tr>
-                        <td scope="row"><%= item.no_jenis %></td>
+                        <!-- <td scope="row"><%= item.no_jenis %></td> -->
                         <td><%= item.nama_jenis %></td>
                     </tr>
                     <%}) %>

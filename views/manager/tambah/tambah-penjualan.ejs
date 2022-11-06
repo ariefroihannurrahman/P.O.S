@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
+    <% console.log(listKaryawan) %>
     <!-- ======== sidebar-nav start =========== -->
     <aside class="sidebar-nav-wrapper">
       <div class="navbar-logo">
@@ -142,7 +143,7 @@
             <div class="row align-items-center">
               <div class="col-md-6">
                 <div class="title mb-30">
-                  <h2>Tambah Karyawan</h2>
+                  <h2>Tambah Penjualan</h2>
                 </div>
               </div>
               <!-- end col -->
@@ -154,10 +155,10 @@
                         <a href="/manager">Dashboard</a>
                       </li>
                       <li class="breadcrumb-item" aria-current="page">
-                        <a href="/karyawan"> Karyawan </a>
+                        <a href="/penjualan"> Penjualan </a>
                       </li>
                       <li class="breadcrumb-item active" aria-current="page">
-                        Tambah Karyawan
+                        Tambah Penjualan
                       </li>
                     </ol>
                   </nav>
@@ -172,14 +173,27 @@
           <div class="row">
             <div class="col">
               <div class="card-style">
-                <form>
+                <form action="/add-penjualan" method="post">
+                  <div class="form-group">
+                    <label for="kode-penjualan">Masukkan Kode Penjualan :</label>
+                    <input type="text" class="form-control" name="kd_penjualan" id="kode-penjualan" placeholder="Masukkan Kode Penjualan">
+                  </div>
                     <div class="form-group">
                       <label for="tanggal-penjualan">Masukkan Tanggal Penjualan :</label>
-                      <input type="text" class="form-control" id="tanggal-penjualan" placeholder="Masukkan Tanggal Penjualan">
+                      <input type="date" class="form-control" name="tanggal_penjualan" id="tanggal-penjualan" placeholder="Masukkan Tanggal Penjualan">
                     </div>
                     <div class="form-group">
+                      <label for="pilih-karyawan">Pilih Karyawan : </label>
+                      <select id="pilih-karyawan" name="no_karyawan" class="form-control">
+                        <option selected>Pilih</option>
+                        <% listKaryawan.forEach((item)=>{ %>
+                          <option value="<%= item.no_karyawan %>"><%= item.nama_karyawan %></option>
+                        <% }); %>
+                      </select>
+                  </div>
+                    <div class="form-group">
                       <label for="deskripsi">Masukkan Deskripsi : </label>
-                      <textarea type="text" class="form-control" id="deskripsi" placeholder="Masukkan Deskripsi" rows="3"></textarea>
+                      <textarea type="text" class="form-control" id="deskripsi" name="deskripsi" placeholder="Masukkan Deskripsi" rows="3"></textarea>
                     </div>
                     <a href="/penjualan" class="btn btn-primary">Kembali</a>
                     <button type="submit" class="btn btn-primary">Tambah</button>

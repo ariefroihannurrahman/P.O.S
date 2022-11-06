@@ -177,7 +177,6 @@
                 <table class="table text-center">
                     <thead>
                         <tr>
-                            <th scope="col">No.</th>
                             <th scope="col">Nama Kategori</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -185,11 +184,10 @@
                     <tbody>
                       <% listKategori.forEach((item)=>{ %>
                         <tr>
-                            <th scope="row"><%= item.no_kategori %></th>
                             <td><%= item.nama_kategori %></td>
                             <td>
                                 <a href="/edit-kategori/<%=item.no_kategori%>" class="btn btn-primary">Edit</a>
-                                <a href="/delete-kategori/<%= item.no_kategori %>" id="delete-kategori" class="btn btn-danger" data-no="<%= item.no_kategori %>">Delete</a>
+                                <a href="/delete-kategori/<%= item.no_kategori %>" id="delete-kategori" class="btn btn-danger" data-id="<%= item.no_kategori %>">Delete</a>
                             </td>
                         </tr>
                         <%}) %>

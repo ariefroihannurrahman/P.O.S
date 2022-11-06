@@ -21,8 +21,8 @@
     <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
-    <%= console.log(dataKaryawan) %> 
-
+    <% console.log(dataPenjualan[0])
+    console.log(listKaryawan) %>
     <!-- ======== sidebar-nav start =========== -->
     <aside class="sidebar-nav-wrapper">
       <div class="navbar-logo">
@@ -55,7 +55,7 @@
                 <a href="/manager"> Dasboard </a>
               </li>
               <li>
-                <a href="/penjualan"> Kelola Penjualan </a>
+                <a href="/penjualan" class="active"> Kelola Penjualan </a>
               </li>
               <li>
                 <a href="/produk"> Kelola Produk </a>
@@ -67,7 +67,7 @@
                 <a href="/jenis"> Kelola Jenis </a>
               </li>
               <li>
-                <a href="/karyawan" class="active"> Kelola Karyawan </a>
+                <a href="/karyawan"> Kelola Karyawan </a>
               </li>
             </ul>
           </li>
@@ -92,6 +92,12 @@
                   >
                     <i class="lni lni-chevron-left me-2"></i> Menu
                   </button>
+                </div>
+                <div class="header-search d-none d-md-flex">
+                  <form action="/laporan-pemilik">
+                    <input type="text" placeholder="Cari" />
+                    <button type="submit"><i class="lni lni-search-alt"></i></button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -138,7 +144,7 @@
             <div class="row align-items-center">
               <div class="col-md-6">
                 <div class="title mb-30">
-                  <h2>Edit Karyawan</h2>
+                  <h2>Edit Penjualan</h2>
                 </div>
               </div>
               <!-- end col -->
@@ -150,10 +156,10 @@
                         <a href="/manager">Dashboard</a>
                       </li>
                       <li class="breadcrumb-item" aria-current="page">
-                        <a href="/karyawan"> Karyawan </a>
+                        <a href="/karyawan"> Penjualan </a>
                       </li>
                       <li class="breadcrumb-item active" aria-current="page">
-                        Edit Karyawan
+                        Edit Penjualan
                       </li>
                     </ol>
                   </nav>
@@ -168,85 +174,40 @@
           <div class="row">
             <div class="col">
               <div class="card-style">
-                <form action="/update-karyawan/" method="post">
-                    <div class="form-group mb-3>
-                      <label for="nama-karyawan">Masukkan Nama Karyawan : </label>
-                      <input type="text" class="form-control" value="<%= dataKaryawan.nama_karyawan %>" name="nama_karyawan" id="nama-karyawan" placeholder="Masukkan Nama Karyawan">
-                    </div>
-                    <!-- <div class="form-group">
-                      <label for="gambar">Masukkan Foto Karyawan</label>
-                      <input type="file" class="form-control-file" value="<%= dataKaryawan.gambar_karyawan %> " id="gambar">
-                    </div> -->
+                <form action="/update-penjualan/" method="post">
                     <div class="form-group">
-                        <label for="nomor-handphone">Masukkan Nomor Handphone : </label>
-                        <input type="text" class="form-control" value="<%= dataKaryawan.nomor_handphone %>" name="nomor_handphone" id="nomor-handphone" placeholder="Masukkan Nomor Handphone">
+                        <label for="kode-penjualan">Masukkan Kode Penjualan :</label>
+                        <input type="text" class="form-control" id="kode-penjualan" name="kd_penjualan" value="<%= dataPenjualan[0].kd_penjualan %>">
                       </div>
-                      <div class="form-group">
-                        <label for="tanggal-rekrut">Masukkan Tanggal Rekrut : </label>
-                        <input type="date" class="form-control" value="<%= dataKaryawan.tanggal_rekrut.toLocaleDateString('en-CA') %>" name="tanggal_rekrut" id="tanggal-rekrut" placeholder="Masukkan Tanggal Rekrut">
-                      </div>
-                      <div class="form-group">
-                        <label for="kode">Masukkan Kode : </label>
-                        <input type="text" value="<%= dataKaryawan.kode %>" class="form-control" name="kode" id="kode" disabled>
-                      </div>
-                      <div class="radio-button-group">
-                        <p>Jenis Kelamin : </p>
-                        <% if(dataKaryawan.jenis_kelamin.toLowerCase() == "laki - laki") {%>
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="pria" value="Laki - Laki" checked="checked">
-                              <label class="form-check-label" for="pria">Laki - Laki</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="perempuan" value="Perempuan">
-                                <label class="form-check-label" for="perempuan">Perempuan</label>
-                            </div>
-                        <%} else {%> 
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="pria" value="Laki - Laki">
-                            <label class="form-check-label" for="pria">Laki - Laki</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input mt-1" type="radio" name="jenis_kelamin" id="Perempuan" checked="checked" value="Perempuan">
-                              <label class="form-check-label" for="perempuan">Perempuan</label>
-                          </div>
-                        <% } %> 
-                        </div>
-                        <div class="radio-button-group">
-                          <p>Jenis Kelamin : </p>
-                          <% if(dataKaryawan.status.toLowerCase() == "aktif") {%>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input mt-1" type="radio" name="status" id="aktif" value="Aktif" checked="checked">
-                                <label class="form-check-label" for="aktif">Aktif</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                  <input class="form-check-input mt-1" type="radio" name="status" id="non-atif" value="Non-Aktif">
-                                  <label class="form-check-label" for="Non-Aktif">Non-Aktif</label>
-                              </div>
-                          <%} else {%> 
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input mt-1" type="radio" name="status" id="aktif" value="Aktif">
-                              <label class="form-check-label" for="aktif">Aktif</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input mt-1" type="radio" name="status" id="Non-Aktif" checked="checked" value="Non-Aktif">
-                                <label class="form-check-label" for="Non-Aktif">Non-Aktif</label>
-                            </div>
-                          <% } %> 
-                          </div>
-                        <div class="form-group mt-2">
-                            <label for="alamat">Masukkan Alamat</label>
-                            <textarea class="form-control" name="alamat" id="alamat" rows="3"><%= dataKaryawan.alamat %></textarea>
-                          </div>
-
-                    <a href="/karyawan" class="btn btn-primary">Kembali</a>
-                    <input type="text" name="no_karyawan" value="<%= dataKaryawan.no_karyawan %>" hidden>
+                    <div class="form-group">
+                      <label for="tanggal-penjualan">Masukkan Tanggal Penjualan :</label>
+                      <input type="date" class="form-control" name="tanggal_penjualan" id="tanggal-penjualan" value="<%= dataPenjualan[0].tanggal_penjualan.toLocaleDateString('en-CA').split(",")[0] %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="pilih-karyawan">Pilih Karyawan : </label>
+                        <select id="pilih-karyawan" name="no_karyawan" class="form-control">
+                        <% listKaryawan.forEach((item)=>{ %>
+                            <% if(item.no_karyawan == dataPenjualan.no_karyawan){ %>
+                            <option selected value="<%= item.no_karyawan %>"><%= item.nama_karyawan %></option>
+                            <%} else { %>
+                            <option value="<%= item.no_karyawan %>"><%= item.nama_karyawan %></option>
+                            <% } %>
+                        <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="deskripsi">Masukkan Deskripsi : </label>
+                      <textarea type="text" class="form-control" name="deskripsi" id="deskripsi" placeholder="Masukkan Deskripsi" rows="3"><%= dataPenjualan[0].deskripsi %></textarea>
+                    </div>
+                    <input type="text" name="no_penjualan" value="<%= dataPenjualan[0].no_penjualan %>" hidden>
+                    <a href="/penjualan" class="btn btn-primary">Kembali</a>
                     <button type="submit" class="btn btn-primary">Edit</button>
                   </form>
               </div>
             </div>
-            <!-- End Col -->
-                  <!-- End Table -->
                 </div>
+                
+                
               </div>
             </div>
             <!-- End Col -->
@@ -287,6 +248,5 @@
     <script src="/js/world-merc.js"></script>
     <script src="/js/polyfill.js"></script>
     <script src="/js/main.js"></script>
-    <script src="js/script.js"></script>
   </body>
 </html>

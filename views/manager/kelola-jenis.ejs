@@ -177,7 +177,6 @@
                 <table class="table text-center">
                     <thead>
                         <tr>
-                            <th scope="col">No.</th>
                             <th scope="col">Nama Jenis</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -185,7 +184,6 @@
                     <tbody>
                       <% listJenis.forEach((item)=>{ %>
                         <tr>
-                            <th scope="row"><%= item.no_jenis %></th>
                             <td><%= item.nama_jenis %></td>
                             <td>
                                 <a href="/edit-jenis/<%=item.no_jenis%>" class="btn btn-primary">Edit</a>
