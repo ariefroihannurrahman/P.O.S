@@ -60,7 +60,7 @@ app.post('/auth', function(req,res) {
       if (results.length > 0) {
           req.session.loggedin = true;
           req.session.dataKasir = results[0];
-          req.session.id_session = year1+""+month1+""+date1+""+results[0].id_karyawan;
+          req.session.id_session = year1+""+month1+""+date1+""+results[0].no_karyawan;
           res.redirect('/laporan-awal');
       } else {
         res.send('Kode Salah!');
@@ -82,13 +82,13 @@ app.get('/laporan-awal', (req,res) => {
 
 app.post('/add-laporan-awal',(req, res) => {
   let data = {
-    id_laporan : req.session.id_session,
+    no_laporan : req.session.id_session,
     no_karyawan : req.session.dataKasir.no_karyawan,
     tanggal_laporan : tanggal,
     laporan_awal : req.body.laporan_awal
   };
   session.laporan_awal = req.body.laporan_awal;
-  let sql = "INSERT INTO laporan_kasir SET ?";
+  let sql = "INSERT INTO laporankasir SET ?";
   let query = conn.query(sql, data,(err, results) => {
     if(err) throw err;
     res.redirect('/kasir');
@@ -102,7 +102,7 @@ app.get('/laporan-akhir', (req,res) => {
 });
 
 app.post('/add-laporan-akhir',(req, res) => {
-  let sql = "UPDATE laporan_kasir SET laporan_akhir ='"+req.body.laporan_akhir+"' WHERE id_laporan="+req.session.id_session+";"
+  let sql = "UPDATE laporankasir SET laporan_akhir ='"+req.body.laporan_akhir+"' WHERE no_laporan="+req.session.id_session+";"
   
   let query = conn.query(sql,(err, results) => {
     if(err) throw err;
@@ -120,11 +120,11 @@ app.post('/add-laporan-akhir',(req, res) => {
 
 
 app.get('/kasir', (req,res) => {
-  var query = 'SELECT produk.kd_produk, produk.nama_produk, jenis.nama_jenis, kategori.nama_kategori, produk.harga from produk INNER JOIN jenis ON produk.id_jenis = jenis.id_jenis INNER JOIN kategori ON produk.id_kategori = kategori.id_kategori;';
-  conn.query(query, function(err, data){
+  var query = 'SELECT produk.kd_produk, produk.nama_produk, jenis.nama_jenis, kategori.nama_kategori, produk.harga from produk INNER JOIN jenis ON produk.no_jenis = jenis.no_jenis INNER JOIN kategori ON produk.no_kategori = kategori.no_kategori;';
+  conn.query(query, function(err, data1){
 		if(err) throw err;
     res.render('kasir/home-kasir.ejs',{
-      listProduk: data,
+      listProduk1: data1,
     });
 	}); 
 });
@@ -143,7 +143,7 @@ app.post("/save-item", function(request, response, next){
 	var kuantitas = request.body.kuantitas;
 	var subtotal = request.body.subtotal;
 
-	var query = `INSERT INTO detailtransaksi (id_detail, id_transaksi, id_produk, kuantitas, subtotal) VALUES ("", "${idt}", "${idp}", "${kuantitas}", "${subtotal}")`;
+	var query = `INSERT INTO detailtransaksi (no_detail, no_transaksi, no_produk, kuantitas, subtotal) VALUES ("", "${idt}", "${idp}", "${kuantitas}", "${subtotal}")`;
 	conn.query(query, function(error, data){
 		console.log("Sukses Detail Transaksi");
 		
@@ -152,7 +152,7 @@ app.post("/save-item", function(request, response, next){
 
 app.post("/get-item-list", function(request, response, next){
 	var idt = request.body.id_transaksi;
-	var query = `select detailtransaksi.id_detail, produk.nama_produk, produk.harga, detailtransaksi.kuantitas, detailtransaksi.subtotal from detailtransaksi INNER JOIN produk ON detailtransaksi.id_produk = produk.id_produk WHERE id_transaksi = "${idt}"`;
+	var query = `select detailtransaksi.no_detail, produk.nama_produk, produk.harga, detailtransaksi.kuantitas, detailtransaksi.subtotal from detailtransaksi INNER JOIN produk ON detailtransaksi.no_produk = produk.no_produk WHERE no_transaksi = "${idt}"`;
 	conn.query(query, function(error, data){
 		response.json(data);
 	});
@@ -164,20 +164,25 @@ app.post("/save-penjualan", function(request, response, next){
 	var tp = request.body.tanggal_penjualan;
 	var total = request.body.total_transaksi;
 	var bayar = request.body.bayar;
-	var kembali = request.body.kembali;
 
-	var query = `INSERT INTO transaksi (id_penjualan, id_karyawan, tanggal_penjualan, total_transaksi, bayar, kembali) VALUES ("${idp}", "${idk}", "${tp}", "${total}", "${bayar}", "${kembali}")`;
+  console.log(idp);
+  console.log(idk);
+  console.log(tp);
+  console.log(total);
+  console.log(bayar);
+
+	var query = `INSERT INTO transaksi (no_transaksi, no_karyawan, tanggal_penjualan, total_transaksi, bayar) VALUES ("${idp}", "${idk}", "${tp}", "${total}", "${bayar}")`;
 	conn.query(query, function(error, data){
 		console.log("Sukses Transaksi");
 	});
 
-  res.redirect('/kasir');
+  response.redirect('/kasir');
 });
 
 app.post('/delete-item/', (req,res)=>{
   let id = req.body.id;
   console.log(id);
-  let sql = "DELETE FROM detailtransaksi WHERE id_detail="+id+"";
+  let sql = "DELETE FROM detailtransaksi WHERE no_detail="+id+"";
   let query = conn.query(sql,(err, results) => {
     if(err) throw err;
     
@@ -212,13 +217,35 @@ app.get('/cari-produk', (req,res) => {
 // });
 
 app.get('/owner', (req, res) => {
-  let sql = "select penjualan.no_penjualan, penjualan.kd_penjualan, karyawan.nama_karyawan, penjualan.tanggal_penjualan, penjualan.deskripsi from penjualan INNER JOIN karyawan ON penjualan.no_karyawan = karyawan.no_karyawan;";
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-    res.render('owner/laporan-pemilik.ejs',{
-      listOwner: results,
-    });
+  async.parallel([
+    function(callback){
+      let sql = "select transaksi.no_transaksi, karyawan.nama_karyawan, transaksi.tanggal_penjualan, transaksi.total_transaksi from transaksi INNER JOIN karyawan ON transaksi.no_karyawan = karyawan.no_karyawan;";
+      let query = conn.query(sql, (err, results1) => {
+        if (err) {
+          return callback(err);
+        }
+        return callback(null, results1);
+      });
+    },function(callback){
+      let sql = `SELECT SUM(total_transaksi) total_penjualan FROM transaksi;`;
+      let query = conn.query(sql, (err, results2) => {
+        if (err) {
+          return callback(err);
+        }
+        return callback(null, results2);
+      });
+    }
+  ], function(error,callbackResults){
+    if(error){
+      console.log(error);
+    }else{
+      res.render('owner/laporan-pemilik.ejs',{
+        listOwner:callbackResults[0],
+        listTotalPenjualan:callbackResults[1]
+      });
+    }
   });
+
 })
 
 //====================
@@ -492,7 +519,7 @@ app.get('/delete-produk/:no_produk', (req,res)=>{
 app.get('/penjualan', (req,res) => {
   async.parallel([
     function(callback){
-      let sql = "select penjualan.no_penjualan, penjualan.kd_penjualan, karyawan.nama_karyawan, penjualan.tanggal_penjualan, penjualan.deskripsi from penjualan INNER JOIN karyawan ON penjualan.no_karyawan = karyawan.no_karyawan;";
+      let sql = "select transaksi.no_transaksi, karyawan.nama_karyawan, transaksi.tanggal_penjualan, transaksi.total_transaksi from transaksi INNER JOIN karyawan ON transaksi.no_karyawan = karyawan.no_karyawan;";
       let query = conn.query(sql, (err, results1) => {
         if (err) {
           return callback(err);
@@ -500,7 +527,7 @@ app.get('/penjualan', (req,res) => {
         return callback(null, results1);
       });
     },function(callback){
-      let sql = `SELECT * from detailpenjualan;`;
+      let sql = `SELECT SUM(total_transaksi) total_penjualan FROM transaksi;`;
       let query = conn.query(sql, (err, results2) => {
         if (err) {
           return callback(err);
@@ -514,7 +541,7 @@ app.get('/penjualan', (req,res) => {
     }else{
       res.render('manager/kelola-penjualan.ejs',{
         listPenjualan:callbackResults[0],
-        listDetailPenjualan:callbackResults[1]
+        listTotalPenjualan:callbackResults[1]
       });
     }
   });

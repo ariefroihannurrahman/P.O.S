@@ -116,13 +116,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                          <% listProduk.forEach((item)=>{ %>
+                          <% listProduk1.forEach((item1)=>{ %>
                             <tr>
-                                <td><%= item.kd_produk %></td>
-                                <td><%= item.nama_produk %></td>
-                                <td><%= item.harga %></td>
-                                <td><%= item.nama_jenis %></td>
-                                <td><%= item.nama_kategori %></td>
+                                <td><%= item1.kd_produk %></td>
+                                <td><%= item1.nama_produk %></td>
+                                <td><%= item1.harga %></td>
+                                <td><%= item1.nama_jenis %></td>
+                                <td><%= item1.nama_kategori %></td>
                             </tr>
                             <%}) %>
                         </tbody>
@@ -154,10 +154,6 @@
         $('#cari-modal').DataTable({
           paging : false
         });
-          
-        // $('#example').DataTable({
-        //     ajax: '../ajax/data/arrays.txt',
-        // });
 
 
         var listproduk=[];
@@ -184,7 +180,7 @@
                 dataproduk = data;
                   $('#nama-produk').val(data.nama_produk);
                   $('#harga-produk').val(data.harga);
-                  $('#id-produk').val(data.id_produk);
+                  $('#id-produk').val(data.no_produk);
               }
           });
         });
@@ -241,7 +237,7 @@
               dataType:"JSON",
               success:function(data)
               {          
-                $('tbody').append('<tr id="'+data[index].id_detail+'"><td>'+listproduk.length+'</td><td id="nama_produk">'+data[index].nama_produk+'</td><td id="harga_produk">'+data[index].harga+'</td><td id="kuantitas_produk">'+data[index].kuantitas+'</td><td id="subtotal_produk">'+data[index].subtotal+'</td><td><button type="button" class="btn btn-primary btn-delete">Delete</button></td></tr>')
+                $('#generate-item').append('<tr id="'+data[index].no_detail+'"><td>'+listproduk.length+'</td><td id="nama_produk">'+data[index].nama_produk+'</td><td id="harga_produk">'+data[index].harga+'</td><td id="kuantitas_produk">'+data[index].kuantitas+'</td><td id="subtotal_produk">'+data[index].subtotal+'</td><td><button type="button" class="btn btn-primary btn-delete">Delete</button></td></tr>')
                 index += 1;
               }
           });

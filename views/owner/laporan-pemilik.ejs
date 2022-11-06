@@ -152,15 +152,13 @@
                 <div class="title d-flex flex-wrap justify-content-between">
                   <div class="left">
                     <h6 class="text-medium mb-10">Laporan Penjualan Pertahun</h6>
-                    <h3 class="text-bold">Rp.3.000.000</h3>
+                    <h3 class="text-bold"><%= listTotalPenjualan[0].total_penjualan %></h3>
                   </div>
                 </div>
                 <!-- End Title -->
                 <table class="table text-center">
                   <thead>
                     <tr>
-                      <th scope="col">No.</th>
-                      <th scope="col">Kode Penjualan</th>
                       <th scope="col">Nama Karyawan</th>
                       <th scope="col">Tanggal Penjualan</th>
                       <th scope="col">Total Penjualan</th>
@@ -169,11 +167,10 @@
                     <tbody>
                       <% listOwner.forEach((item)=>{ %> 
                       <tr>
-                        <th scope="row">1</th>
-                        <td><%= item.kd_penjualan %></td>
-                        <td><%= item.nama_karyawan %> </td>
-                        <td>01/11/2022</td>
-                        <td>Rp.3.000.000</td>
+                        <td><%= item.nama_karyawan %></td>
+                        <td><%= item.tanggal_penjualan.toLocaleString('id-ID').split(" ")[0] %></td>
+                            <!-- <td><%= item.deskripsi %></td> -->
+                        <td><%= item.total_transaksi %></td>
                       </tr>
                       <% }); %> 
                     </tbody>
