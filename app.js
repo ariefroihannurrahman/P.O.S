@@ -76,6 +76,7 @@ app.post('/auth', function(req,res) {
 app.get('/laporan-awal', (req,res) => {
   res.render('kasir/laporan-awal.ejs',{
     dataKasir: req.session.dataKasir,
+    dataSession : req.session.id_session
   });
 });
 
@@ -90,7 +91,6 @@ app.post('/add-laporan-awal',(req, res) => {
   let sql = "INSERT INTO laporan_kasir SET ?";
   let query = conn.query(sql, data,(err, results) => {
     if(err) throw err;
-    // res.redirect('/kasir');
     res.redirect('/kasir');
   });
 });
@@ -188,6 +188,11 @@ app.post('/delete-item/', (req,res)=>{
 //===========================================================//
 //===================== /KASIR UTAMA ============================//
 //===========================================================//
+
+//===========================================================//
+//===================== /KASIR UTAMA ============================//
+//===========================================================//
+
 
 
 
